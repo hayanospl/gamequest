@@ -1,5 +1,12 @@
 Rails.application.routes.draw do
-  get 'top_pages/index'
+  devise_for :users
+  devise_scope :user do
+    get 'login', to: 'devise/sessions#new'
+    post 'login', to: 'devise/session#create'
+    get 'logout', to: 'devise/sessions#destroy'
+    get '/users/create', to: 'devise/registrations#new'
+  end
+  root 'top_pages#index'
   get 'top_pages/:id', to: 'top_pages#new'
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 end
