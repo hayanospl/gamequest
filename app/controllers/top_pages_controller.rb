@@ -3,6 +3,5 @@ class TopPagesController < ApplicationController
   end
 
   def new
-    @id = params[:id]
   end
 end
