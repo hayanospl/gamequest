@@ -1,10 +1,10 @@
 Rails.application.routes.draw do
   devise_for :users
   devise_scope :user do
-    get   'login', to: 'devise/sessions#new'
-    post  'login', to: 'devise/session#create'
-    get   'logout', to: 'devise/sessions#destroy'
-    get   '/users/create', to: 'devise/registrations#new'
+    get     'login', to: 'devise/sessions#new'
+    post    'login', to: 'devise/session#create'
+    delete  'logout', to: 'devise/sessions#destroy'
+    get     '/users/create', to: 'devise/registrations#new'
   end
   root 'top_pages#index'
   
