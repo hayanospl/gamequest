@@ -1,0 +1,31 @@
+<span>ログイン中のユーザー: <%= current_user.name %></span>
+
+<%= form_with(model: @post, local: true) do |f| %>
+<%= render 'shared/post_error_messages', object: f.object %>
+  <div class="field">
+    <%= f.text_field :title, placeholder: "タイトル" %></br>
+    <%= f.text_area :content, placeholder: "質問を自由に書き込んでください" %></br>
+  <%= f.submit "投稿する" %>
+<% end %>
+
+<h5>投稿一覧を仮置きしてます</h5>
+<table>
+  <thead class="thead-dark">
+    <tr>
+      <th>NO.</th>
+      <th>ユーザー</th>
+      <th>タイトル</th>
+      <th>本文</th>
+    </tr>
+  </thead>
+  <tbody>
+      <% @posts.each do |post| %>
+        <tr>
+          <th><%= post.id %></th>
+          <td><%= post.user.name %></td>
+          <td><%= post.title %></td>
+          <td><%= post.content %></td>
+        </tr>
+    <% end %>
+  </tbody>
+</table>
