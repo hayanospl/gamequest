@@ -64,3 +64,6 @@ gem 'devise-i18n'
 #gem 'devise-bootstrap-views', '~> 1.0'
 gem 'bootstrap', '~> 4.3.1'
 gem 'jquery-rails'
+
+# ダミーデータ生成用
+gem 'faker'
