@@ -8,16 +8,19 @@
 User.create!(
   name: 'test',
   email: 'test@test.test',
-  password: 'testtest'
+  password: 'testtest',
+  profile: 'testtestest'
 )
 
 10.times do |n|
   name = Faker::Name.name
   email = "dummy#{n+1}@gamequest.com"
   password = "password"
+  profile = Faker::Lorem.sentence(word_count: 5)
   User.create!(name:      name,
                email:     email,
-               password:  password)
+               password:  password,
+               profile: profile)
 end
 
 users = User.order(:created_at).take(5)
