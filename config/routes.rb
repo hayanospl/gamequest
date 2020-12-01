@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
-  get 'users/show', to: "users#show"
+  get 'users/show', to: 'users#show'
+  get 'users/edit', to: 'users#edit'
+  patch 'users/edit', to: 'users#create'
   devise_for :users
   devise_scope :user do
     get     'login', to: 'devise/sessions#new'

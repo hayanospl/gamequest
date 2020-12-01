@@ -1,4 +1,12 @@
 <h3>マイプロフィール</h3>
-
+<h5>
+  <% if @user.image? %>
+    <%= image_tag @user.image.url %>
+  <% else %>
+    <%= image_tag "/assets/default.jpg", :size => '200x100' %>
+  <% end %>
+</h5>
 <h5>ユーザー名: <%= @user.name %></h5>
 <h5>プロフィール: <%= @user.profile %></h5>
+
+<h2><%= button_to '編集', users_edit_path, method: :get %></h2>
