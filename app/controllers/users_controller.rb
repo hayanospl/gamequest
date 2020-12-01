@@ -10,9 +10,6 @@ before_action :authenticate_user!, only: [:show]
 
   def create
     @user = User.find(current_user.id)
-    # if @user.image.file == nil
-    #   @user.save
-    # end
     if @user.update(user_params)
       redirect_to users_show_path
     else
