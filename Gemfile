@@ -67,3 +67,9 @@ gem 'jquery-rails'
 
 # ダミーデータ生成用
 gem 'faker'
+
+# 画像アップロード
+gem 'carrierwave'
+
+# デバック用
+gem 'pry-byebug'

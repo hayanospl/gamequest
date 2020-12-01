@@ -1,0 +1,17 @@
+<h2>プロフィールを編集してください</h2>
+
+<span>ログイン中のユーザー: <%= current_user.name %></span></br>
+
+<% if @user.image? %>
+  <%= image_tag (current_user.image.url) %>
+<% else %>
+  <%= image_tag "/assets/default.jpg", :size => '100x100' %>
+<% end %>
+
+<%= form_with(model: @user, url: users_edit_path, local: true) do |f| %>
+  <div class="field">
+    <%= f.file_field :image, accept: 'image/jpeg, image/gif, image/png' %></br>
+    <%= f.text_field :name, placeholder: "名前" %></br>
+    <%= f.text_area :profile, placeholder: "プロフィール" %></br>
+  <%= f.submit "編集する" %>
+<% end %>
