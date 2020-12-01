@@ -8,7 +8,7 @@ before_action :authenticate_user!, only: [:show]
     @user = User.find(current_user.id)
   end
 
-  def create
+  def update
     @user = User.find(current_user.id)
     if @user.update(user_params)
       redirect_to users_show_path
