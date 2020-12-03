@@ -5,8 +5,7 @@
 <h2>コメント一覧</h2>
 <% @post.comments.each do |c| %>
   <div>
-    <h5>ユーザーID <%= c.user_id %></h5>
-    <h5>ユーザー名 <%= c.user.attribute %></h5>
+    <h5>ユーザー名 <%= c.user.name %></h5>
     <h5>コメント <%= c.content %></h5>
     --------------------------------
   </div>
