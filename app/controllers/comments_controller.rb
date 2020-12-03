@@ -1,12 +1,13 @@
 class CommentsController < ApplicationController
   def create
-    #@post = Post.find(params[:id])
-    @comment = Comment.new(comment_params)
+    @post = Post.find(params[:post_id])
+    @comment = @post.comments.build(comment_params)
     @comment.user_id = current_user.id
-    if @comment.save #今の段階では保存が成功したらホーム、失敗したらプロフィール画面にいくようにしてます
-      redirect_to root_path
+    #@comment.name = current_user.name
+    if @comment.save
+      redirect_to post_path(@post.id)
     else
-      redirect_to users_show_path
+      redirect_to root_path
     end
 
   end
