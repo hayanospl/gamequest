@@ -1,6 +1,4 @@
 Rails.application.routes.draw do
-  get 'likes/create'
-  get 'likes/destroy'
   get 'users/show', to: 'users#show'
   get 'users/edit', to: 'users#edit'
   patch 'users/edit', to: 'users#update'
