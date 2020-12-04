@@ -9,13 +9,17 @@ Rails.application.routes.draw do
     delete  'logout', to: 'devise/sessions#destroy'
     get     '/users/create', to: 'devise/registrations#new'
   end
+
   root 'top_pages#index'
   resources :posts do
-    resources :comments, only: [:create]
+    resources :comments, only: [:create] do
+      resources :comment_likes, only: [:create, :destroy]
+    end
   end
 
   resources :posts do
     resources :likes, only: [:create, :destroy]
   end
+
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 end
