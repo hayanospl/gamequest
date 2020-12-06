@@ -70,6 +70,7 @@ gem 'faker'
 
 # 画像アップロード
 gem 'carrierwave'
+gem 'mini_magick'
 
 # デバック用
 gem 'pry-byebug'
