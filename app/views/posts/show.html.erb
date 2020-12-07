@@ -15,8 +15,8 @@
   <p><span>いいね: </span>♡<%= link_to @post.likes.count, post_likes_path(@post.id), method: :post, class: "text-secondary"  %></p>
 <% end %>
 
-<p><span>投稿のいいね数: </span><%= @post.likes.count %></p>
-
+<p><span>投稿のいいね数: </span><%= @post.likes.count %></p></br>
+<%= link_to '削除', post_path(post_id: @post.id), method: :delete %>
 
 <h2>コメント一覧</h2>
 <% @post.comments.each do |c| %>
@@ -37,6 +37,7 @@
       <p><span>いいね: </span>♡<%= link_to c.comment_likes.count, post_comment_comment_likes_path(post_id: @post.id, comment_id: c.id), method: :post, class: "text-secondary"  %></p>
     <% end %>
     <p><span>コメントのいいね数: </span><%= c.comment_likes.count %></p>
+    <%= link_to '削除', post_comment_path(post_id: @post.id, comment_id: c.id), method: :delete %></br>
     --------------------------------
   </div>
 <% end %>
