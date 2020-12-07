@@ -23,6 +23,14 @@
   <div>
     <h5>ユーザー名 <%= c.user.name %></h5>
     <h5>コメント <%= c.content %></h5>
+    <% if c.image? %>
+      <% if c.image.file.content_type.include?('image/') %>
+        <%= image_tag c.image.url(:thumb) %>
+      <% else %>
+        <%= video_tag c.image.url, width: "30%", height: "30%", controls: true, autobuffer: true %>
+      <% end %>
+    <% end %>
+
     <% if c.comment_liked_by?(current_user) %>
       <p><span >いいね解除: </span>♡<%= link_to c.comment_likes.count, post_comment_comment_like_path(post_id: @post.id, comment_id: c.id), method: :delete, class: "text-danger" %></p>
     <% else %>
@@ -35,6 +43,7 @@
 
 <%= form_with(model: [@post, @comment], local: true) do |f| %>
   <%= f.text_field :content %><br>
+  <%= f.file_field :image, accept: 'image/jpeg, image/gif, image/png, video/*'%></br>
   <%= f.submit 'コメントする' %>
 <% end %>
 
