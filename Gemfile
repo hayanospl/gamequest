@@ -74,3 +74,6 @@ gem 'mini_magick'
 
 # デバック用
 gem 'pry-byebug'
+
+# ページネーション用
+gem 'kaminari'
