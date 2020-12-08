@@ -1,5 +1,6 @@
 class PostsController < ApplicationController
   before_action :authenticate_user!, only: [:new, :create, :show]
+
   def index
   end
 
@@ -21,6 +22,12 @@ class PostsController < ApplicationController
     else
       render new_post_path
     end
+  end
+
+  def destroy
+    @post = current_user.posts.find(params[:post_id])
+    @post.destroy
+    redirect_to root_path
   end
 
   private
