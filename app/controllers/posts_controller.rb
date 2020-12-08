@@ -1,6 +1,5 @@
 class PostsController < ApplicationController
   before_action :authenticate_user!, only: [:new, :create, :show]
-  before_action :correct_user, only: :destroy
 
   def index
   end
@@ -26,6 +25,8 @@ class PostsController < ApplicationController
   end
 
   def destroy
+    @post = current_user.posts.find_by(id: params[:post_id])
+    raise if @post.nil?
     @post.destroy
     redirect_to root_path
   end
@@ -33,10 +34,5 @@ class PostsController < ApplicationController
   private
   def post_params
     params.require(:post).permit(:title, :content, :image)
-  end
-
-  def correct_user
-    @post = current_user.posts.find_by(id: params[:post_id])
-    redirect_to root_path if @post.nil?
   end
 end
