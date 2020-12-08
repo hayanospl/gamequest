@@ -13,7 +13,7 @@ class CommentsController < ApplicationController
 
   def destroy
     @post = Post.find(params[:post_id])
-    @comment = current_user.comments.find(id: params[:comment_id])
+    @comment = current_user.comments.find(params[:comment_id])
     @comment.destroy
     redirect_to request.referrer || root_path
   end
