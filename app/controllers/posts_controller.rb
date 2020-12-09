@@ -32,7 +32,7 @@ class PostsController < ApplicationController
 
   def search
     if params[:keyword].present?
-      posts = Post.includes(:user).references(:users).where('title LIKE ? OR content LIKE ?', "%#{params[:keyword]}%", "%#{params[:keyword]}%")
+      posts = Post.includes(:user).where('title LIKE ? OR content LIKE ?', "%#{params[:keyword]}%", "%#{params[:keyword]}%")
       posts_array = posts.to_a
       @posts = Kaminari.paginate_array(posts_array).page(params[:page]).per(10)
     end
