@@ -77,3 +77,6 @@ gem 'pry-byebug'
 
 # ページネーション用
 gem 'kaminari'
+
+# N+1検出用
+gem 'bullet'
