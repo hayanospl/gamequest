@@ -2,8 +2,8 @@
 <p>タイトルか本文のキーワードにヒットします</p>
 <p>いいねの数は、入力した数字以上のいいね数を持つ投稿を検索します</p>
 <%= form_with url: search_posts_path, method: :get, local: true do |f| %>
-  <%= f.text_field :q, placeholder: "キーワードを一つ入力"%></br>
-  <%= f.text_field :r, placeholder: "いいねの数を入力"%></br>
+  <%= f.text_field :keyword, placeholder: "キーワードを一つ入力"%></br>
+  <%= f.text_field :likecount, placeholder: "いいねの数を入力"%></br>
   <%= f.submit :検索 %>
 <% end %>
 

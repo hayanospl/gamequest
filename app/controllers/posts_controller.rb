@@ -31,27 +31,27 @@ class PostsController < ApplicationController
   end
 
   def search
-    if params[:q].present?
-      posts = Post.where('title LIKE ? OR content LIKE ?', "%#{params[:q]}%", "%#{params[:q]}%")
+    if params[:keyword].present?
+      posts = Post.includes(:user).references(:users).where('title LIKE ? OR content LIKE ?', "%#{params[:keyword]}%", "%#{params[:keyword]}%")
       posts_array = posts.to_a
       @posts = Kaminari.paginate_array(posts_array).page(params[:page]).per(10)
     end
     
-    if params[:r].present?
-      if params[:q].present?
+    if params[:likecount].present?
+      if params[:keyword].present?
         posts_all = posts
       else
-        posts_all = Post.all
+        posts_all = Post.includes(:user)
       end
 
       post_array = Array.new
 
       posts_all.each do |p|
-        if p.likes.count >= params[:r].to_i
+        if p.likes.count >= params[:likecount].to_i
           post_array.push(p)
         end
       end
-      
+
       @posts = Kaminari.paginate_array(post_array).page(params[:page]).per(10)
     end
 
