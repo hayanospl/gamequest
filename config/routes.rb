@@ -12,6 +12,7 @@ Rails.application.routes.draw do
 
   root 'top_pages#index'
   resources :posts do
+    get :search, on: :collection
     resources :comments, only: [:create, :destroy] do
       resources :comment_likes, only: [:create, :destroy]
     end

@@ -30,6 +30,36 @@ class PostsController < ApplicationController
     redirect_to root_path
   end
 
+  def search
+    if params[:q].present?
+      posts = Post.where('title LIKE ? OR content LIKE ?', "%#{params[:q]}%", "%#{params[:q]}%")
+      posts_array = posts.to_a
+      @posts = Kaminari.paginate_array(posts_array).page(params[:page]).per(10)
+    end
+    
+    if params[:r].present?
+      if params[:q].present?
+        posts_all = posts
+      else
+        posts_all = Post.all
+      end
+
+      post_array = Array.new
+
+      posts_all.each do |p|
+        if p.likes.count >= params[:r].to_i
+          post_array.push(p)
+        end
+      end
+      
+      @posts = Kaminari.paginate_array(post_array).page(params[:page]).per(10)
+    end
+
+    if @posts.nil?
+      @posts = Post.none
+    end
+  end
+
   private
   def post_params
     params.require(:post).permit(:title, :content, :image)
