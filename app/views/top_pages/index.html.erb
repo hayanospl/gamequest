@@ -25,9 +25,11 @@
           <td scope="row"><%= post.user.name %></td>
           <td scope="row"><%= post.title %></td>
           <td scope="row"><%= post.content %></td>
-          <td scope="row"><%  post.tag_list.each do |tag| %>
-                            <%= link_to tag, root_path(tag_name: tag) %>
-                          <% end %></td>
+          <td scope="row">
+                    <%  post.tag_list.each do |tag| %>
+                          <%= link_to tag, root_path(tag_name: tag) %>
+                    <% end %>
+            </td>
           <td scope="row"><%= post.comments.count %></td>
           <td scope="row"><%= post.likes.count %></td>
           <td scope="row"><%= link_to "詳細", post_path(post.id) %></td>

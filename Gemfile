@@ -82,4 +82,4 @@ gem 'kaminari'
 gem 'bullet'
 
 # タグ生成用
-gem 'acts-as-taggable-on', '~>6.0'
+gem 'acts-as-taggable-on', '~> 6.5'
