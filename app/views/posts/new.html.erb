@@ -5,6 +5,7 @@
   <div class="field">
     <%= f.text_field :title, placeholder: "タイトル" %></br>
     <%= f.text_area :content, placeholder: "質問を自由に書き込んでください" %></br>
+    <%= f.text_field :tag_list, value: @post.tag_list.join(','), placeholder: "タグ(, で複数作れます)" %></br>
     <p>画像: <%= f.file_field :image, accept: 'image/jpeg, image/gif, image/png, video/*'%></p></br>
   <%= f.submit "投稿する" %>
 <% end %>

@@ -9,6 +9,10 @@
   <% end %>
 <% end %>
 
+<% @post.tag_list.each do |tag| %>
+  <%= link_to tag, root_path(tag_name: tag) %>
+<% end %>
+
 <% if @post.liked_by?(current_user) %>
   <p><span >いいね解除: </span>♡<%= link_to @post.likes.count, post_like_path(@post.id), method: :delete, class: "text-danger" %></p>
 <% else %>

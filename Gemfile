@@ -80,3 +80,6 @@ gem 'kaminari'
 
 # N+1検出用
 gem 'bullet'
+
+# タグ生成用
+gem 'acts-as-taggable-on', '~> 6.5'
