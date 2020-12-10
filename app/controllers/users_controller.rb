@@ -2,6 +2,8 @@ class UsersController < ApplicationController
 before_action :authenticate_user!, only: [:show]
   def show
     @user = current_user
+    @user_posts = @user.posts.order("created_at DESC").page(params[:page]).per(10)
+    @likes = @user.likes.order("created_at DESC").page(params[:page]).per(10)
   end
 
   def edit

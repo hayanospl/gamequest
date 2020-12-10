@@ -10,3 +10,64 @@
 <h5>プロフィール: <%= @user.profile %></h5>
 
 <h2><%= button_to '編集', users_edit_path, method: :get %></h2>
+
+<h5>投稿一覧</h5>
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">NO.</th>
+      <th scope="col">ユーザー</th>
+      <th scope="col">タイトル</th>
+      <th scope="col">本文</th>
+      <th scope="col">返信数</th>
+      <th scope="col">いいね数</th>
+      <th scope="col">投稿詳細</th>
+    </tr>
+  </thead>
+  <tbody>
+      <% @user_posts.each do |post| %>
+        <tr>
+          <th scope="row"><%= post.id %></th>
+          <td scope="row"><%= post.user.name %></td>
+          <td scope="row"><%= post.title %></td>
+          <td scope="row"><%= post.content %></td>
+          <td scope="row"><%= post.comments.count %></td>
+          <td scope="row"><%= post.likes.count %></td>
+          <td scope="row"><%= link_to "詳細", post_path(post.id) %></td>
+        </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<%= paginate @user_posts if @user_posts.present?-%>
+
+<h5>いいね一覧</h5>
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">NO.</th>
+      <th scope="col">ユーザー</th>
+      <th scope="col">タイトル</th>
+      <th scope="col">本文</th>
+      <th scope="col">返信数</th>
+      <th scope="col">いいね数</th>
+      <th scope="col">投稿詳細</th>
+    </tr>
+  </thead>
+  <tbody>
+      <% @likes.each do |like| %>
+        <% post = Post.find_by(id: like.post_id) %>
+        <tr>
+          <th scope="row"><%= post.id %></th>
+          <td scope="row"><%= post.user.name %></td>
+          <td scope="row"><%= post.title %></td>
+          <td scope="row"><%= post.content %></td>
+          <td scope="row"><%= post.comments.count %></td>
+          <td scope="row"><%= post.likes.count %></td>
+          <td scope="row"><%= link_to "詳細", post_path(post.id) %></td>
+        </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<%= paginate @likes if @likes.present?-%>
