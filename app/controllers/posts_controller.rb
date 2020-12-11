@@ -31,37 +31,66 @@ class PostsController < ApplicationController
   end
 
   def search
-    if params[:keyword].present?
-      posts = Post.includes(:user).where('title LIKE ? OR content LIKE ?', "%#{params[:keyword]}%", "%#{params[:keyword]}%")
-      posts_array = posts.to_a
-      @posts = Kaminari.paginate_array(posts_array).page(params[:page]).per(10)
+    posts = Post.where('title LIKE ? OR content LIKE ?', "%#{params[:keyword]}%", "%#{params[:keyword]}%") if params[:keyword].present?
+    if params[:tag_name].present? && params[:keyword].present?
+      posts = posts.tagged_with(params[:tag_name], :match_all => false)
+    elsif params[:tag_name].present?
+      posts = Post.includes(:user, :taggings).tagged_with(params[:tag_name], :match_all => false)
     end
-    
-    if params[:likecount].present?
-      if params[:keyword].present?
-        posts_all = posts
-      else
-        posts_all = Post.includes(:user)
-      end
 
+    if params[:tag_name].blank? && params[:keyword].blank?
+      posts = Post.all.includes(:user, :taggings)
+    end
+
+    case params[:sort]
+
+      when 'new'
+        posts = posts.order(created_at: :DESC)
+        
+      when 'old'
+        posts = posts.order(created_at: :ASC)
+        
+      when 'likes'
+        posts1 = Array.new
+          posts.each do |p|
+            if p.likes.count == 0
+              posts1.push(p)
+            end
+          end
+        posts2 = posts.find(Like.group(:post_id).order(Arel.sql('count(post_id) desc')).pluck(:post_id))
+        posts = posts2 + posts1
+
+      when 'dislikes'
+        posts1 = Array.new
+          posts.each do |p|
+            if p.likes.count == 0
+              posts1.push(p)
+            end
+          end 
+        posts2 = posts.find(Like.group(:post_id).order(Arel.sql('count(post_id) asc')).pluck(:post_id))
+        posts = posts1 + posts2
+    end
+
+    if params[:likecount].present?
       post_array = Array.new
 
-      posts_all.each do |p|
-        if p.likes.count >= params[:likecount].to_i
-          post_array.push(p)
+        posts.each do |p|
+          if p.likes.count >= params[:likecount].to_i
+            post_array.push(p)
+          end
         end
-      end
+      posts = post_array
+     end
 
-      @posts = Kaminari.paginate_array(post_array).page(params[:page]).per(10)
-    end
+    @posts = Kaminari.paginate_array(posts).page(params[:page]).per(10)
 
-    if @posts.nil?
-      @posts = Post.none
+    if  @posts.blank?
+        @posts = Post.none
     end
   end
 
   private
   def post_params
-    params.require(:post).permit(:title, :content, :image, :tag_list)
+    params.require(:post).permit(:title, :content, :image)
   end
 end

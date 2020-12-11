@@ -3,7 +3,12 @@
 <p>いいねの数は、入力した数字以上のいいね数を持つ投稿を検索します</p>
 <%= form_with url: search_posts_path, method: :get, local: true do |f| %>
   <%= f.text_field :keyword, placeholder: "キーワードを一つ入力"%></br>
+  <%= f.text_field :tag_name, placeholder: "タグを一つ入力"%></br>
   <%= f.text_field :likecount, placeholder: "いいねの数を入力"%></br>
+  <%= f.select :sort, [['投稿日時が新しい順', 'new'],
+                      ['投稿日時が古い順', 'old'],
+                      ['いいねが多い順', 'likes'],
+                      ['いいねが少ない順', 'dislikes']] %>
   <%= f.submit :検索 %>
 <% end %>
 
@@ -15,6 +20,7 @@
       <th scope="col">ユーザー</th>
       <th scope="col">タイトル</th>
       <th scope="col">本文</th>
+      <th scope="col">タグ</th>
       <th scope="col">返信数</th>
       <th scope="col">いいね数</th>
       <th scope="col">投稿詳細</th>
@@ -27,6 +33,11 @@
           <td scope="row"><%= post.user.name %></td>
           <td scope="row"><%= post.title %></td>
           <td scope="row"><%= post.content %></td>
+          <td scope="row">
+                    <%  post.tag_list.each do |tag| %>
+                          <%= link_to tag, search_posts_path(tag_name: tag) %>
+                    <% end %>
+            </td>
           <td scope="row"><%= post.comments.count %></td>
           <td scope="row"><%= post.likes.count %></td>
           <td scope="row"><%= link_to "詳細", post_path(post.id) %></td>
