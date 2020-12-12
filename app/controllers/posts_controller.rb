@@ -31,7 +31,7 @@ class PostsController < ApplicationController
   end
 
   def search
-    posts = Post.where('title LIKE ? OR content LIKE ?', "%#{params[:keyword]}%", "%#{params[:keyword]}%") if params[:keyword].present?
+    posts = Post.includes(:user, :taggings).where('title LIKE ? OR content LIKE ?', "%#{params[:keyword]}%", "%#{params[:keyword]}%") if params[:keyword].present?
     if params[:tag_name].present? && params[:keyword].present?
       posts = posts.tagged_with(params[:tag_name], :match_all => false)
     elsif params[:tag_name].present?
@@ -51,36 +51,43 @@ class PostsController < ApplicationController
         posts = posts.order(created_at: :ASC)
         
       when 'likes'
-        posts1 = Array.new
-          posts.each do |p|
-            if p.likes.count == 0
-              posts1.push(p)
-            end
-          end
-        posts2 = posts.find(Like.group(:post_id).order(Arel.sql('count(post_id) desc')).pluck(:post_id))
-        posts = posts2 + posts1
-
+        posts = posts.select('posts.*', 'count(likes.id) AS likes')
+                      .left_joins(:likes)
+                      .group('posts.id')
+                      .order('likes desc')
+                      .order('created_at desc')
+                      
       when 'dislikes'
-        posts1 = Array.new
-          posts.each do |p|
-            if p.likes.count == 0
-              posts1.push(p)
-            end
-          end 
-        posts2 = posts.find(Like.group(:post_id).order(Arel.sql('count(post_id) asc')).pluck(:post_id))
-        posts = posts1 + posts2
+        posts = posts.select('posts.*', 'count(likes.id) AS likes')
+                      .left_joins(:likes)
+                      .group('posts.id')
+                      .order('likes asc')
+                      .order('created_at desc')
     end
 
     if params[:likecount].present?
       post_array = Array.new
 
-        posts.each do |p|
-          if p.likes.count >= params[:likecount].to_i
-            post_array.push(p)
+      case params[:inequality]
+
+        when 'greater'
+          posts.each do |p|
+            if p.likes.count >= params[:likecount].to_i
+              post_array.push(p)
+            end
           end
-        end
-      posts = post_array
-     end
+        posts = post_array
+
+        when 'less'
+          posts.each do |p|
+            if p.likes.count <= params[:likecount].to_i
+              post_array.push(p)
+            end
+          end
+        posts = post_array
+      end
+
+    end
 
     @posts = Kaminari.paginate_array(posts).page(params[:page]).per(10)
 
@@ -91,6 +98,6 @@ class PostsController < ApplicationController
 
   private
   def post_params
-    params.require(:post).permit(:title, :content, :image)
+    params.require(:post).permit(:title, :content, :image, :tag_list)
   end
 end

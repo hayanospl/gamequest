@@ -4,7 +4,8 @@
 <%= form_with url: search_posts_path, method: :get, local: true do |f| %>
   <%= f.text_field :keyword, placeholder: "キーワードを一つ入力"%></br>
   <%= f.text_field :tag_name, placeholder: "タグを一つ入力"%></br>
-  <%= f.text_field :likecount, placeholder: "いいねの数を入力"%></br>
+  <%= f.text_field :likecount, placeholder: "いいねの数を入力"%>
+  <%= f.select :inequality, [['←以上', 'greater'], ['←以下', 'less']]%></br>
   <%= f.select :sort, [['投稿日時が新しい順', 'new'],
                       ['投稿日時が古い順', 'old'],
                       ['いいねが多い順', 'likes'],
