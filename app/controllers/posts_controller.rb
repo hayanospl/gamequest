@@ -31,32 +31,68 @@ class PostsController < ApplicationController
   end
 
   def search
-    if params[:keyword].present?
-      posts = Post.includes(:user).where('title LIKE ? OR content LIKE ?', "%#{params[:keyword]}%", "%#{params[:keyword]}%")
-      posts_array = posts.to_a
-      @posts = Kaminari.paginate_array(posts_array).page(params[:page]).per(10)
+    posts = Post.includes(:user, :taggings).where('title LIKE ? OR content LIKE ?', "%#{params[:keyword]}%", "%#{params[:keyword]}%") if params[:keyword].present?
+    if params[:tag_name].present? && params[:keyword].present?
+      posts = posts.tagged_with(params[:tag_name], :match_all => false)
+    elsif params[:tag_name].present?
+      posts = Post.includes(:user, :taggings).tagged_with(params[:tag_name], :match_all => false)
     end
-    
-    if params[:likecount].present?
-      if params[:keyword].present?
-        posts_all = posts
-      else
-        posts_all = Post.includes(:user)
-      end
 
+    if params[:tag_name].blank? && params[:keyword].blank?
+      posts = Post.all.includes(:user, :taggings)
+    end
+
+    case params[:sort]
+
+      when 'new'
+        posts = posts.order(created_at: :DESC)
+        
+      when 'old'
+        posts = posts.order(created_at: :ASC)
+        
+      when 'likes'
+        posts = posts.select('posts.*', 'count(likes.id) AS likes')
+                      .left_joins(:likes)
+                      .group('posts.id')
+                      .order('likes desc')
+                      .order('created_at desc')
+                      
+      when 'dislikes'
+        posts = posts.select('posts.*', 'count(likes.id) AS likes')
+                      .left_joins(:likes)
+                      .group('posts.id')
+                      .order('likes asc')
+                      .order('created_at desc')
+    end
+
+    if params[:likecount].present?
       post_array = Array.new
 
-      posts_all.each do |p|
-        if p.likes.count >= params[:likecount].to_i
-          post_array.push(p)
-        end
+      case params[:inequality]
+
+        when 'greater'
+          posts.each do |p|
+            if p.likes.count >= params[:likecount].to_i
+              post_array.push(p)
+            end
+          end
+        posts = post_array
+
+        when 'less'
+          posts.each do |p|
+            if p.likes.count <= params[:likecount].to_i
+              post_array.push(p)
+            end
+          end
+        posts = post_array
       end
 
-      @posts = Kaminari.paginate_array(post_array).page(params[:page]).per(10)
     end
 
-    if @posts.nil?
-      @posts = Post.none
+    @posts = Kaminari.paginate_array(posts).page(params[:page]).per(10)
+
+    if  @posts.blank?
+        @posts = Post.none
     end
   end
 
