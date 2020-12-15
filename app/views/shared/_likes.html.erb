@@ -1,5 +1,10 @@
-<% if @post.liked_by?(current_user) %>
-  <p><span >いいね解除: </span>♡<%= link_to @post.likes.count, post_like_path(post_id: @post.id, id: @post.likes[0].id) , method: :delete, remote: true, class: "text-danger" %></p>
+<% if post.liked_by?(current_user) %>
+  <%= link_to post_like_path(post_id: post.id, id: post.likes[0].id) , method: :delete, remote: true do %>
+    <i class="fas fa-heart"></i>
+  <% end %>
 <% else %>
-  <p><span>いいね: </span>♡<%= link_to @post.likes.count, post_likes_path(@post.id), method: :post, remote: true, class: "text-secondary"  %></p>
+  <%= link_to  post_likes_path(post.id), method: :post, remote: true do %>
+    <i class="far fa-heart"></i>
+  <% end %>
 <% end %>
+<%= post.likes.count %>

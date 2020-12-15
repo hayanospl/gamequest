@@ -1,5 +1,10 @@
 <% if c.comment_liked_by?(current_user) %>
-  <p><span >いいね解除: </span>♡<%= link_to c.comment_likes.count, post_comment_comment_like_path(post_id: @post.id, comment_id: c.id ), remote: true, method: :delete, class: "text-danger" %></p>
+  <%= link_to post_comment_comment_like_path(post_id: post.id, comment_id: c.id, id: c.id ), remote: true, method: :delete do %>
+    <i class="fas fa-heart"></i>
+  <% end %>
 <% else %>
-  <p><span>いいね: </span>♡<%= link_to c.comment_likes.count, post_comment_comment_likes_path(post_id: @post.id, comment_id: c.id), remote: true, method: :post, class: "text-secondary"  %></p>
+  <%= link_to post_comment_comment_likes_path(post_id: post.id, comment_id: c.id), remote: true, method: :post do %>
+    <i class="far fa-heart"></i>
+  <% end %>
 <% end %>
+<%= c.comment_likes.count %>
