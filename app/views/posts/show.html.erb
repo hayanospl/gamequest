@@ -13,11 +13,9 @@
   <%= link_to tag, root_path(tag_name: tag) %>
 <% end %>
 
-<% if @post.liked_by?(current_user) %>
-  <p><span >いいね解除: </span>♡<%= link_to @post.likes.count, post_like_path(@post.id), method: :delete, class: "text-danger" %></p>
-<% else %>
-  <p><span>いいね: </span>♡<%= link_to @post.likes.count, post_likes_path(@post.id), method: :post, class: "text-secondary"  %></p>
-<% end %>
+<div id="likes_buttons_<%= @post.id %>">
+  <%= render 'shared/likes', locals: { post: @post }%>
+</div>
 
 <p><span>投稿のいいね数: </span><%= @post.likes.count %></p></br>
 
@@ -38,11 +36,9 @@
       <% end %>
     <% end %>
 
-    <% if c.comment_liked_by?(current_user) %>
-      <p><span >いいね解除: </span>♡<%= link_to c.comment_likes.count, post_comment_comment_like_path(post_id: @post.id, comment_id: c.id), method: :delete, class: "text-danger" %></p>
-    <% else %>
-      <p><span>いいね: </span>♡<%= link_to c.comment_likes.count, post_comment_comment_likes_path(post_id: @post.id, comment_id: c.id), method: :post, class: "text-secondary"  %></p>
-    <% end %>
+    <div id="commentlikes_buttons_<%= c.id %>">
+      <%= render partial: 'shared/commentlikes', locals: { c: c }%>
+    </div>
 
     <p><span>コメントのいいね数: </span><%= c.comment_likes.count %></p>
     

@@ -1,12 +1,14 @@
 class CommentLikesController < ApplicationController
   def create
-    current_user.comment_likes.create(comment_id: params[:comment_id], user_id: current_user.id)
-    redirect_to post_path(params[:post_id])
+    @comment = Comment.find(params[:comment_id])
+    unless @comment.comment_liked_by?(current_user)
+      @like = current_user.comment_likes.create(comment_id: params[:comment_id], user_id: current_user.id)
+    end
   end
 
   def destroy
+    @comment = Comment.find(params[:id])
     @like = CommentLike.find_by(comment_id: params[:comment_id], user_id: current_user.id)
     @like.destroy
-    redirect_to post_path
   end
 end
