@@ -39,8 +39,6 @@
       <%= render partial: 'shared/commentlikes', locals: { c: c, post: @post }%>
     </div>
 
-    <p><span>コメントのいいね数: </span><%= c.comment_likes.count %></p>
-    
     <% if c.user_id == current_user.id %>
       <%= link_to '削除', post_comment_path(post_id: @post.id, comment_id: c.id), method: :delete %></br>
     <% end %>

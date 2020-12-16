@@ -10,7 +10,17 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_12_10_064531) do
+ActiveRecord::Schema.define(version: 2020_12_16_025557) do
+
+  create_table "already_reads", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "post_id", null: false
+    t.boolean "already_read"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["post_id"], name: "index_already_reads_on_post_id"
+    t.index ["user_id"], name: "index_already_reads_on_user_id"
+  end
 
   create_table "comment_likes", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.bigint "user_id", null: false
@@ -95,6 +105,8 @@ ActiveRecord::Schema.define(version: 2020_12_10_064531) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "already_reads", "posts"
+  add_foreign_key "already_reads", "users"
   add_foreign_key "comment_likes", "comments"
   add_foreign_key "comment_likes", "users"
   add_foreign_key "comments", "posts"

@@ -8,6 +8,9 @@
 <table class="table">
   <thead>
     <tr>
+      <% if user_signed_in? %>
+        <th scope="col">既読</th>
+      <% end %>
       <th scope="col">NO.</th>
       <th scope="col">ユーザー</th>
       <th scope="col">タイトル</th>
@@ -20,7 +23,9 @@
   </thead>
   <tbody>
       <% @posts.each do |post| %>
-        <tr>
+          <% if user_signed_in? %>
+            <%= render 'shared/alreadyread', post: post %>
+          <% end %>
           <th scope="row"><%= post.id %></th>
           <td scope="row"><%= post.user.name %></td>
           <td scope="row"><%= post.title %></td>
