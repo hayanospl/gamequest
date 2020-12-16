@@ -24,7 +24,7 @@
   <tbody>
       <% @posts.each do |post| %>
           <% if user_signed_in? %>
-            <%= render partial: 'shared/alreadyread', locals: {post: post}, method: :post%>
+            <%= render 'shared/alreadyread', post: post %>
           <% end %>
           <th scope="row"><%= post.id %></th>
           <td scope="row"><%= post.user.name %></td>

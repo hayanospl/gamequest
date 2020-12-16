@@ -31,7 +31,7 @@
   <tbody>
       <% @posts.each do |post| %>
         <tr>
-          <%= render partial: 'shared/alreadyread', locals: {post: post} %>
+          <%= render 'shared/alreadyread', post: post %>
           <th scope="row"><%= post.id %></th>
           <td scope="row"><%= post.user.name %></td>
           <td scope="row"><%= post.title %></td>

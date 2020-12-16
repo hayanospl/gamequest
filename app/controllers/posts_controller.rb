@@ -11,7 +11,7 @@ class PostsController < ApplicationController
   def show
     @post = Post.find(params[:id])
       unless @post.already_read?(current_user)
-        @read = current_user.already_reads.create(post_id: @post.id)
+        current_user.already_reads.create(post_id: @post.id)
       end
     @comment = Comment.new
   end
@@ -98,7 +98,7 @@ class PostsController < ApplicationController
         @posts = Post.none
     end
   end
-  
+
   private
   def post_params
     params.require(:post).permit(:title, :content, :image, :tag_list)
