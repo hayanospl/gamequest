@@ -1,4 +1,4 @@
-<% if post.already_reads.exists? %>
+<% if post.already_read?(current_user) %>
   <th scope="row" ><i class="fas fa-check"></i></th>
 <% else %>
   <th scope="row"></th>
