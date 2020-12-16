@@ -17,6 +17,7 @@
 <table class="table">
   <thead>
     <tr>
+      <th scope="col">既読</th>
       <th scope="col">NO.</th>
       <th scope="col">ユーザー</th>
       <th scope="col">タイトル</th>
@@ -30,6 +31,7 @@
   <tbody>
       <% @posts.each do |post| %>
         <tr>
+          <%= render partial: 'shared/alreadyread', locals: {post: post} %>
           <th scope="row"><%= post.id %></th>
           <td scope="row"><%= post.user.name %></td>
           <td scope="row"><%= post.title %></td>

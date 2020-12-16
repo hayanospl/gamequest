@@ -10,6 +10,9 @@ class PostsController < ApplicationController
 
   def show
     @post = Post.find(params[:id])
+      if AlreadyRead.create(post_id: @post.id, user_id: current_user.id)
+        @read = AlreadyRead.update(already_read: true)
+      end
     @comment = Comment.new
   end
 
