@@ -27,12 +27,12 @@ class TopPagesController < ApplicationController
       @recommend_tag = recommend_tag
 
       posts = Post.tagged_with(recommend_tag).where.not(user_id: current_user.id)
-      @recommends = posts.select('posts.*', 'count(already_reads.id) AS already_reads')
-                    .left_joins(:already_reads)
-                    .group('posts.id')
-                    .order('already_reads desc')
-                    .limit(10)
-                    .page(params[:page]).per(10)
+      @recommend_posts = posts.select('posts.*', 'count(already_reads.id) AS already_reads')
+                              .left_joins(:already_reads)
+                              .group('posts.id')
+                              .order('already_reads desc')
+                              .limit(10)
+                              .page(params[:page]).per(10)
     end
     
   end

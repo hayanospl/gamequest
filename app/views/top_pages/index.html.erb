@@ -4,7 +4,7 @@
 <h2><%= button_to 'プロフィール', users_show_path, method: :get %></h2>
 </div>
 
-<% if user_signed_in? && @recommends.present?%>
+<% if user_signed_in? && @recommend_posts.present?%>
   <h3><%=@recommend_tag%>に興味がある人におすすめ</h3>
   <table class="table">
     <thead>
@@ -22,7 +22,7 @@
     </thead>
 
     <tbody>
-      <% @recommends.each do |reco| %>
+      <% @recommend_posts.each do |reco| %>
             <%= render 'shared/alreadyread', post: reco %>
             <th scope="row"><%= reco.id %></th>
             <td scope="row"><%= reco.user.name %></td>
@@ -40,7 +40,7 @@
       <% end %>
     </tbody>
   </table>
-<%= paginate @recommends %>
+<%= paginate @recommend_posts %>
 <% end %>
 
 <h5>投稿一覧</h5>
