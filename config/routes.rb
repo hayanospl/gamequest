@@ -2,7 +2,7 @@ Rails.application.routes.draw do
   get 'users/show', to: 'users#show'
   get 'users/edit', to: 'users#edit'
   patch 'users/edit', to: 'users#update'
-  devise_for :users
+  devise_for :users, controllers: { omniauth_callbacks: 'users/omniauth_callbacks' }
   devise_scope :user do
     get     'login', to: 'devise/sessions#new'
     post    'login', to: 'devise/session#create'
