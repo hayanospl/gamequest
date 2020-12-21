@@ -83,3 +83,9 @@ gem 'bullet'
 
 # タグ生成用
 gem 'acts-as-taggable-on', '~> 6.5'
+
+# twitterログイン用
+gem 'omniauth'
+gem 'omniauth-twitter'
+gem 'dotenv'
+gem 'dotenv-rails'
