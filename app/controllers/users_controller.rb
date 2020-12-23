@@ -4,6 +4,7 @@ before_action :authenticate_user!, only: [:show]
     @user = current_user
     @user_posts = @user.posts.order("created_at DESC").page(params[:page]).per(10)
     @likes = @user.likes.order("created_at DESC").page(params[:page]).per(10)
+    @following_posts = Post.includes(:user).where(user_id: @user.followings.ids).order("created_at DESC").page(params[:page]).per(10)
   end
 
   def edit

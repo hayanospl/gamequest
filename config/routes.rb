@@ -2,6 +2,9 @@ Rails.application.routes.draw do
   get 'users/show', to: 'users#show'
   get 'users/edit', to: 'users#edit'
   patch 'users/edit', to: 'users#update'
+  get 'users/relationships/followings', to: 'relationships#followings'
+  get 'users/relationships/followers', to: 'relationships#followers'
+  get 'relationships/follow', to: 'relationships#follow'
   devise_for :users, controllers: { omniauth_callbacks: 'users/omniauth_callbacks' }
   devise_scope :user do
     get     'login', to: 'devise/sessions#new'
@@ -11,6 +14,9 @@ Rails.application.routes.draw do
   end
 
   root 'top_pages#index'
+
+  resources :relationships, only: [:create, :destroy]
+  
   resources :posts do
     get :search, on: :collection
     resources :comments, only: [:create, :destroy] do

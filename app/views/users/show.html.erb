@@ -8,10 +8,44 @@
 </h5>
 <h5>ユーザー名: <%= @user.name %></h5>
 <h5>プロフィール: <%= @user.profile %></h5>
+<h5>フォロー: <%= link_to @user.followings.count,  users_relationships_followings_path %></h5>
+<h5>フォロワー: <%= link_to @user.followers.count,  users_relationships_followers_path %></h5>
 
 <h2><%= button_to '編集', users_edit_path, method: :get %></h2>
 
-<h5>投稿一覧</h5>
+<h5>フォロワーの投稿</h5>
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">既読</th>
+      <th scope="col">NO.</th>
+      <th scope="col">ユーザー</th>
+      <th scope="col">タイトル</th>
+      <th scope="col">本文</th>
+      <th scope="col">返信数</th>
+      <th scope="col">いいね数</th>
+      <th scope="col">投稿詳細</th>
+    </tr>
+  </thead>
+  <tbody>
+      <% @following_posts.each do |follow| %>
+        <tr>
+          <%= render 'shared/alreadyread', post: follow %>
+          <th scope="row"><%= follow.id %></th>
+          <td scope="row"><%= follow.user.name %></td>
+          <td scope="row"><%= follow.title %></td>
+          <td scope="row"><%= follow.content %></td>
+          <td scope="row"><%= follow.comments.count %></td>
+          <td scope="row"><%= follow.likes.count %></td>
+          <td scope="row"><%= link_to "詳細", post_path(follow.id) %></td>
+        </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<%= paginate @following_posts if @following_posts.present?-%>
+
+<h5>あなたの投稿一覧</h5>
 <table class="table">
   <thead>
     <tr>
