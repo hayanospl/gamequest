@@ -23,16 +23,16 @@
     </tr>
   </thead>
   <tbody>
-      <% @following_posts.each do |follow| %>
+      <% @following_posts.each do |post| %>
         <tr>
-          <%= render 'shared/alreadyread', post: follow %>
-          <th scope="row"><%= follow.id %></th>
-          <td scope="row"><%= follow.user.name %></td>
-          <td scope="row"><%= follow.title %></td>
-          <td scope="row"><%= follow.content %></td>
-          <td scope="row"><%= follow.comments.count %></td>
-          <td scope="row"><%= follow.likes.count %></td>
-          <td scope="row"><%= link_to "詳細", post_path(follow.id) %></td>
+          <%= render 'shared/alreadyread', post: post %>
+          <th scope="row"><%= post.id %></th>
+          <td scope="row"><%= post.user.name %></td>
+          <td scope="row"><%= post.title %></td>
+          <td scope="row"><%= post.content %></td>
+          <td scope="row"><%= post.comments.count %></td>
+          <td scope="row"><%= post.likes.count %></td>
+          <td scope="row"><%= link_to "詳細", post_path(post.id) %></td>
         </tr>
     <% end %>
   </tbody>

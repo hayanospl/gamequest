@@ -14,10 +14,12 @@ class RelationshipsController < ApplicationController
   end
 
   def followings
+    @user = current_user
     @followings = User.find(current_user.followings.ids)
   end
 
   def followers
+    @user = current_user
     @followers = User.find(current_user.followers.ids)
   end
 

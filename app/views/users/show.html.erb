@@ -8,8 +8,8 @@
 </h5>
 <h5>ユーザー名: <%= @user.name %></h5>
 <h5>プロフィール: <%= @user.profile %></h5>
-<h5>フォロー: <%= link_to @followings.count,  users_relationships_followings_path %></h5>
-<h5>フォロワー: <%= link_to @followers.count,  users_relationships_followers_path %></h5>
+<h5>フォロー: <%= link_to @user.followings.count,  users_relationships_followings_path %></h5>
+<h5>フォロワー: <%= link_to @user.followers.count,  users_relationships_followers_path %></h5>
 
 <h2><%= button_to '編集', users_edit_path, method: :get %></h2>
 
