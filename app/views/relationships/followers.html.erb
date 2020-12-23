@@ -1,0 +1,5 @@
+<h2>フォローされているユーザー</h2>
+<% @followers.each do |f| %>
+  <%= link_to f.name,  relationships_follow_path(id: f.id) %></br>
+  <%= f.profile %></br>
+<% end %>

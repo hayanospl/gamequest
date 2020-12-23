@@ -1,6 +1,7 @@
 <h1>投稿詳細ページ</h1>
 <h3>投稿者: <%= @post.user.name %></h3>
 <h3>本文: <%= @post.content %></h3>
+<%= render 'relationships/follow_button', user: @post.user %>
 <% if @post.image? %>
   <% if @post.image.file.content_type.include?('image/') %>
     <%= image_tag @post.image.url(:thumb) %>
