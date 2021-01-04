@@ -1,7 +1,6 @@
 <%= render 'shared/flash_messages' %>
 <div class="text-center">
 <h2><%= button_to '投稿', new_post_path, method: :get %></h2>
-<h2><%= button_to 'プロフィール', users_show_path, method: :get %></h2>
 </div>
 
 <% if user_signed_in? && @recommend_posts.present?%>
@@ -10,10 +9,8 @@
     <thead>
       <tr>
         <th scope="col">既読</th>
-        <th scope="col">NO.</th>
         <th scope="col">ユーザー</th>
         <th scope="col">タイトル</th>
-        <th scope="col">本文</th>
         <th scope="col">タグ</th>
         <th scope="col">返信数</th>
         <th scope="col">いいね数</th>
@@ -24,10 +21,8 @@
     <tbody>
       <% @recommend_posts.each do |reco| %>
             <%= render 'shared/alreadyread', post: reco %>
-            <th scope="row"><%= reco.id %></th>
             <td scope="row"><%= reco.user.name %></td>
             <td scope="row"><%= reco.title %></td>
-            <td scope="row"><%= reco.content %></td>
             <td scope="row">
                       <%  reco.tag_list.each do |tag| %>
                             <%= link_to tag, root_path(tag_name: tag) %>
@@ -43,44 +38,46 @@
 <%= paginate @recommend_posts %>
 <% end %>
 
-<h5>投稿一覧</h5>
-<table class="table">
-  <thead>
-    <tr>
-      <% if user_signed_in? %>
-        <th scope="col">既読</th>
-      <% end %>
-      <th scope="col">NO.</th>
-      <th scope="col">ユーザー</th>
-      <th scope="col">タイトル</th>
-      <th scope="col">本文</th>
-      <th scope="col">タグ</th>
-      <th scope="col">返信数</th>
-      <th scope="col">いいね数</th>
-      <th scope="col">投稿詳細</th>
-    </tr>
-  </thead>
 
-  <tbody>
-      <% @posts.each do |post| %>
-          <% if user_signed_in? %>
-            <%= render 'shared/alreadyread', post: post %>
-          <% end %>
-          <th scope="row"><%= post.id %></th>
-          <td scope="row"><%= post.user.name %></td>
-          <td scope="row"><%= post.title %></td>
-          <td scope="row"><%= post.content %></td>
-          <td scope="row">
-                    <%  post.tag_list.each do |tag| %>
-                          <%= link_to tag, root_path(tag_name: tag) %>
-                    <% end %>
-            </td>
-          <td scope="row"><%= post.comments.count %></td>
-          <td scope="row"><%= post.likes.count %></td>
-          <td scope="row"><%= link_to "詳細", post_path(post.id) %></td>
-        </tr>
+
+<h3>投稿一覧</h3>
+<% @posts.each do |post| %>
+  <div class="post-index">
+    <%= link_to post_path(post.id) do %>
+    <div class="flex-container7">
+      <div class="flex-container6">
+
+             <div class="user-icon">
+                <% if post.image? %>
+                  <div><%= image_tag post.image.url %></div>
+                <% else %>
+                  <div><%= image_tag "/assets/default.jpg", :size => '50x50' %></div>
+                <% end %>
+              </div>
+
+          <div class="flex-container4">
+            <div class="tag-container">
+              <% post.tag_list.each do |tag| %>
+                <div class="post-tag"><%= link_to tag, root_path(tag_name: tag) %></div>
+              <% end %>
+            </div>
+
+            <div class="title"><%= post.title %></div>
+            
+            <div class="flex-container5">
+               <% if user_signed_in? %>
+               <div class="already-read"><%= render 'shared/alreadyread', post: post %></div>
+                <% end %>
+              <div class="comments-count"><i class="far fa-comment fa-lg"></i> <%=  post.comments.count %></div>
+              <div class="likes-count"><i class="far fa-heart fa-lg"></i> <%=  post.likes.count %></div>
+            </div>
+          </div>
+
+        </div>
+        </div>
+        </div>
+      </div>
     <% end %>
-  </tbody>
-</table>
-
+<% end %>
 <%= paginate @posts -%>
+</div>
