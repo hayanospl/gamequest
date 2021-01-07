@@ -1,109 +1,146 @@
-<h3>マイプロフィール</h3>
-<h5>
-  <% if @user.image? %>
-    <%= image_tag @user.image.url %>
-  <% else %>
-    <%= image_tag "/assets/default.jpg", :size => '200x100' %>
-  <% end %>
-</h5>
-<h5>ユーザー名: <%= @user.name %></h5>
-<h5>プロフィール: <%= @user.profile %></h5>
-<h5>フォロー: <%= link_to @user.followings.count,  users_relationships_followings_path %></h5>
-<h5>フォロワー: <%= link_to @user.followers.count,  users_relationships_followers_path %></h5>
+<div class="main-contents">
+  <div class="user-show-index">
+    <div>
+      <% if @user.image? %>
+        <div><%= image_tag @user.image.url, class: "user-show-user-icon" %></div>
+      <% else %>
+        <div><%= image_tag "/assets/default.jpg", :size => '130x130' %></div>
+      <% end %>
+    </div>
+    <div class="user-show-name"><%= @user.name %></div>
+    <div class="user-show-profile"><%= simple_format(@user.profile) %></div>
 
-<h2><%= button_to '編集', users_edit_path, method: :get %></h2>
+    <div class="user-show-follow-info">
+      <div><%= link_to @user.followings.count,  users_relationships_followings_path, class: "user-show-following" %> フォロー中</div>
+      <div><%= link_to @user.followers.count,  users_relationships_followers_path, class: "user-show-follower" %> フォロワー</div>
+    </div>
 
-<h5>フォロワーの投稿</h5>
-<table class="table">
-  <thead>
-    <tr>
-      <th scope="col">既読</th>
-      <th scope="col">NO.</th>
-      <th scope="col">ユーザー</th>
-      <th scope="col">タイトル</th>
-      <th scope="col">本文</th>
-      <th scope="col">返信数</th>
-      <th scope="col">いいね数</th>
-      <th scope="col">投稿詳細</th>
-    </tr>
-  </thead>
-  <tbody>
-      <% @following_posts.each do |follow| %>
-        <tr>
-          <%= render 'shared/alreadyread', post: follow %>
-          <th scope="row"><%= follow.id %></th>
-          <td scope="row"><%= follow.user.name %></td>
-          <td scope="row"><%= follow.title %></td>
-          <td scope="row"><%= follow.content %></td>
-          <td scope="row"><%= follow.comments.count %></td>
-          <td scope="row"><%= follow.likes.count %></td>
-          <td scope="row"><%= link_to "詳細", post_path(follow.id) %></td>
-        </tr>
+    <div><%= button_to '編集', users_edit_path, method: :get, class: "user-show-edit-button" %></div>
+  </div>
+</div>
+
+
+      
+ <div class="main-contents">
+  <h3 class="title-index">フォロワーの投稿</h3>
+    <% @following_posts.each do |post| %>
+      <div class="post-index">
+          <div class="overall-container">
+              <%= link_to post_path(post.id) do %>
+                <div class="title"><%= post.title %></div>
+              <% end %>
+
+              <div class="tag-container">
+                <% post.tag_list.each do |tag| %>
+                  <span class="post-tag"><%= link_to tag, root_path(tag_name: tag) %></span>
+                <% end %>
+              </div>
+
+              <div class="other-container">
+                <% if user_signed_in? %>
+                  <div class="already-read"><%= render 'shared/alreadyread', post: post %></div>
+                <% end %>
+
+                <div class="comments-count"><i class="far fa-comment"></i> <%=  post.comments.count %></div>
+                <div class="likes-count"><i class="far fa-heart"></i> <%=  post.likes.count %></div>
+
+                <div class="user-info">
+                    <% if post.user.image? %>
+                      <div><%= image_tag post.user.image.url, class: "user-index-icon" %></div>
+                    <% else %>
+                      <div><%= image_tag "/assets/default.jpg", :size => '15x15' %></div>
+                    <% end %>
+                    <div class="user-name"> <%= post.user.name %></div>
+                </div>
+              </div>
+
+          </div>
+
+      </div>
     <% end %>
-  </tbody>
-</table>
-
 <%= paginate @following_posts if @following_posts.present?-%>
+</div>
 
-<h5>あなたの投稿一覧</h5>
-<table class="table">
-  <thead>
-    <tr>
-      <th scope="col">NO.</th>
-      <th scope="col">ユーザー</th>
-      <th scope="col">タイトル</th>
-      <th scope="col">本文</th>
-      <th scope="col">返信数</th>
-      <th scope="col">いいね数</th>
-      <th scope="col">投稿詳細</th>
-    </tr>
-  </thead>
-  <tbody>
-      <% @user_posts.each do |post| %>
-        <tr>
-          <th scope="row"><%= post.id %></th>
-          <td scope="row"><%= post.user.name %></td>
-          <td scope="row"><%= post.title %></td>
-          <td scope="row"><%= post.content %></td>
-          <td scope="row"><%= post.comments.count %></td>
-          <td scope="row"><%= post.likes.count %></td>
-          <td scope="row"><%= link_to "詳細", post_path(post.id) %></td>
-        </tr>
+<div class="main-contents">
+  <h3 class="title-index">あなたの投稿一覧</h3>
+    <% @user_posts.each do |post| %>
+      <div class="post-index">
+          <div class="overall-container">
+              <%= link_to post_path(post.id) do %>
+                <div class="title"><%= post.title %></div>
+              <% end %>
+
+              <div class="tag-container">
+                <% post.tag_list.each do |tag| %>
+                  <span class="post-tag"><%= link_to tag, root_path(tag_name: tag) %></span>
+                <% end %>
+              </div>
+
+              <div class="other-container">
+                <% if user_signed_in? %>
+                  <div class="already-read"><%= render 'shared/alreadyread', post: post %></div>
+                <% end %>
+
+                <div class="comments-count"><i class="far fa-comment"></i> <%=  post.comments.count %></div>
+                <div class="likes-count"><i class="far fa-heart"></i> <%=  post.likes.count %></div>
+
+                <div class="user-info">
+                    <% if post.user.image? %>
+                      <div><%= image_tag post.user.image.url, class: "user-index-icon"  %></div>
+                    <% else %>
+                      <div><%= image_tag "/assets/default.jpg", :size => '15x15' %></div>
+                    <% end %>
+                    <div class="user-name"> <%= post.user.name %></div>
+                </div>
+              </div>
+
+          </div>
+
+      </div>
     <% end %>
-  </tbody>
-</table>
-
 <%= paginate @user_posts if @user_posts.present?-%>
+</div>
 
-<h5>いいね一覧</h5>
-<table class="table">
-  <thead>
-    <tr>
-      <th scope="col">既読</th>
-      <th scope="col">NO.</th>
-      <th scope="col">ユーザー</th>
-      <th scope="col">タイトル</th>
-      <th scope="col">本文</th>
-      <th scope="col">返信数</th>
-      <th scope="col">いいね数</th>
-      <th scope="col">投稿詳細</th>
-    </tr>
-  </thead>
-  <tbody>
-      <% @likes.each do |like| %>
-        <% post = Post.find_by(id: like.post_id) %>
-        <tr>
-          <%= render 'shared/alreadyread', post: post %>
-          <th scope="row"><%= post.id %></th>
-          <td scope="row"><%= post.user.name %></td>
-          <td scope="row"><%= post.title %></td>
-          <td scope="row"><%= post.content %></td>
-          <td scope="row"><%= post.comments.count %></td>
-          <td scope="row"><%= post.likes.count %></td>
-          <td scope="row"><%= link_to "詳細", post_path(post.id) %></td>
-        </tr>
+
+  
+<div class="main-contents">
+  <h3 class="title-index">いいね一覧</h3>
+    <% @likes.each do |like| %>
+    <% post = Post.find_by(id: like.post_id) %>
+      <div class="post-index">
+          <div class="overall-container">
+              <%= link_to post_path(post.id) do %>
+                <div class="title"><%= post.title %></div>
+              <% end %>
+
+              <div class="tag-container">
+                <% post.tag_list.each do |tag| %>
+                  <span class="post-tag"><%= link_to tag, root_path(tag_name: tag) %></span>
+                <% end %>
+              </div>
+
+              <div class="other-container">
+                <% if user_signed_in? %>
+                  <div class="already-read"><%= render 'shared/alreadyread', post: post %></div>
+                <% end %>
+
+                <div class="comments-count"><i class="far fa-comment"></i> <%=  post.comments.count %></div>
+                <div class="likes-count"><i class="far fa-heart"></i> <%=  post.likes.count %></div>
+
+                <div class="user-info">
+                    <% if post.user.image? %>
+                      <div><%= image_tag post.user.image.url, class: "user-index-icon"  %></div>
+                    <% else %>
+                      <div><%= image_tag "/assets/default.jpg", :size => '15x15' %></div>
+                    <% end %>
+                    <div class="user-name"> <%= post.user.name %></div>
+                </div>
+              </div>
+
+          </div>
+
+      </div>
     <% end %>
-  </tbody>
-</table>
 
 <%= paginate @likes if @likes.present?-%>
+</div>

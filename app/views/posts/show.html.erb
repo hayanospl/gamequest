@@ -1,56 +1,93 @@
-<h1>投稿詳細ページ</h1>
-<h3>投稿者: <%= @post.user.name %></h3>
-<h3>本文: <%= @post.content %></h3>
-<%= render 'relationships/follow_button', user: @post.user %>
-<% if @post.image? %>
-  <% if @post.image.file.content_type.include?('image/') %>
-    <%= image_tag @post.image.url(:thumb) %>
-  <% else %>
-    <%= video_tag @post.image.url, width: "30%", height: "30%", controls: true, autobuffer: true %>
-  <% end %>
-<% end %>
 
-<% @post.tag_list.each do |tag| %>
-  <%= link_to tag, root_path(tag_name: tag) %>
-<% end %>
+<div class="post-show-maincontents">
+      <div class="top-container">
+        <div class="post-show-tag">
+          <% @post.tag_list.each do |tag| %>
+            <span><%= link_to tag, root_path(tag_name: tag) %></span>
+          <% end %>
+        </div>
 
-<div id="likes_buttons_<%= @post.id %>">
-  <%= render partial: 'shared/likes', locals: { post: @post } %>
-</div>
+        <div class="post-show-title"><%= @post.title %></div>
 
+        <div class="post-show-container">
+          <div>コメント<%= @post.comments.count %></div>
+          <div class="post-show-userinfo">
+            <% if @post.user.image? %>
+              <div><%= image_tag @post.image.url, class: "user-index-icon" %></div>
+            <% else %>
+              <div><%= image_tag "/assets/default.jpg", :size => '15x15' %></div>
+            <% end %>
+            <div class="post-show-username"><%= @post.user.name %></div>
+            <div class="post-show-follow"><%= render 'relationships/follow_button', user: @post.user %></div>
+          </div>
+        </div>
+      </div>
 
-<% if @post.user_id == current_user.id %>
-  <%= link_to '削除', post_path(post_id: @post.id), method: :delete %>
-<% end %>
+  <div class="post-show-body">
+    <div class="post-show-content"><%= simple_format(@post.content) %></div>
 
-<h2>コメント一覧</h2>
-<% @post.comments.each do |c| %>
-  <div>
-    <h5>ユーザー名 <%= c.user.name %></h5>
-    <h5>コメント <%= c.content %></h5>
-    <% if c.image? %>
-      <% if c.image.file.content_type.include?('image/') %>
-        <%= image_tag c.image.url(:thumb) %>
-      <% else %>
-        <%= video_tag c.image.url, width: "30%", height: "30%", controls: true, autobuffer: true %>
+      <% if @post.image? %>
+        <% if @post.image.file.content_type.include?('image/') %>
+          <div class="post-image"><%= image_tag @post.image.url %></div>
+        <% else %>
+          <div class="post-video"><%= video_tag @post.image.url, width: "30%", height: "30%", controls: true, autobuffer: true %></div>
+        <% end %>
       <% end %>
-    <% end %>
 
-    <div id="commentlikes_buttons_<%= c.id %>">
-      <%= render partial: 'shared/commentlikes', locals: { c: c, post: @post }%>
-    </div>
-
-    <% if c.user_id == current_user.id %>
-      <%= link_to '削除', post_comment_path(post_id: @post.id, comment_id: c.id), method: :delete %></br>
+      <div id="likes_buttons_<%= @post.id %>">
+        <%= render partial: 'shared/likes', locals: { post: @post } %>
+      </div>
+  
+    <% if @post.user_id == current_user.id %>
+      <div class="post-delete"><i class="fas fa-trash-alt"></i><%= link_to '削除', post_path(post_id: @post.id), method: :delete, class: "post-delete" %>
     <% end %>
-    --------------------------------
   </div>
-<% end %>
 
-<%= form_with(model: [@post, @comment], local: true) do |f| %>
-  <%= f.text_field :content %><br>
-  <%= f.file_field :image, accept: 'image/jpeg, image/gif, image/png, video/*'%></br>
-  <%= f.submit 'コメントする' %>
-<% end %>
+  <div class="post-show-comments">コメント<%= @post.comments.count %>件</div>
+    <% @post.comments.each do |c| %>
+      <div class="comment-body">
 
-<%= link_to "ホームへ戻る", root_path %>
+        <div><%= simple_format(c.content) %></div>
+          <div class="comment-image">
+            <% if c.image? %>
+              <% if c.image.file.content_type.include?('image/') %>
+                <%= image_tag c.image.url %>
+              <% else %>
+                <%= video_tag c.image.url, width: "30%", height: "30%", controls: true, autobuffer: true %>
+              <% end %>
+            <% end %>
+          </div>
+
+        <div class="comment-user">
+          <% if c.user.image? %>
+            <div><%= image_tag c.user.image.url, class: "user-index-icon" %></div>
+          <% else %>
+            <div><%= image_tag "/assets/default.jpg", :size => '15x15' %></div>
+          <% end %>
+          <div><%= c.user.name %></div>
+        </div>
+
+        <div class="comment-like-and-delete">
+          <div id="commentlikes_buttons_<%= c.id %>">
+            <%= render partial: 'shared/commentlikes', locals: { c: c, post: @post }%>
+          </div>
+
+          <% if c.user_id == current_user.id %>
+            <div class="post-delete"><i class="fas fa-trash-alt"></i><%= link_to '削除', post_comment_path(post_id: @post.id, comment_id: c.id), method: :delete, class: "post-delete" %></div>
+          <% end %>
+        </div>
+      </div>
+    <% end %>
+
+  <div class="comment-container">
+    <div>コメントする</div>
+      <%= form_with(model: [@post, @comment], local: true) do |f| %>
+        <div><%= f.text_area :content, class: "new-comment" %></div>
+        <div><%= f.label :image, "画像を添付", class: "comment-image-input-btn" %></div>
+          <%= f.file_field :image, accept: 'image/jpeg, image/gif, image/png, video/*', class: "comment-image-form"%></div>
+        <div><%= f.submit 'コメントする', class: "comment-submit" %></div>
+      <% end %>
+    <div><%= link_to "ホームへ戻る", root_path, class: "post-show-home" %></div>
+  </div>
+
+</div>

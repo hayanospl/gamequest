@@ -1,0 +1,19 @@
+.header-container{
+  display: flex;
+  flex-direction: row;
+  margin-right: auto;
+  background-color: rgb(67, 67, 67);
+  font-size: 32px;
+  color: white;
+}
+
+.header-content{
+  margin: 5px 10px;
+  font-weight: bold;
+}
+
+.first-child{
+  margin-right: auto;
+  padding: 5px;
+  font-weight: bold;
+}
