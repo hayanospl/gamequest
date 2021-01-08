@@ -83,11 +83,27 @@
     <div>コメントする</div>
       <%= form_with(model: [@post, @comment], local: true) do |f| %>
         <div><%= f.text_area :content, class: "new-comment" %></div>
-        <div><%= f.label :image, "画像を添付", class: "comment-image-input-btn" %></div>
-          <%= f.file_field :image, accept: 'image/jpeg, image/gif, image/png, video/*', class: "comment-image-form"%></div>
+        <div class="post-new-image-comment">
+          <label>
+            <span class="btn btn-primary">
+              画像 <%= f.file_field :image, accept: 'image/jpeg, image/gif, image/png, video/*', style: "display:none"%>
+            </span>
+          </label>
+          <input type="text" class="form-control" readonly="">
+
+          <script>
+            $(document).on('change', ':file', function(){
+              var input = $(this),
+              numFiles = input.get(0).files ? input.get(0).files.length : 1,
+              label = input.val().replace(/\\/g, '/').replace(/.*\//, '');
+              input.parent().parent().next(':text').val(label);
+            });
+          </script>
+        </div>
+        
         <div><%= f.submit 'コメントする', class: "comment-submit" %></div>
       <% end %>
     <div><%= link_to "ホームへ戻る", root_path, class: "post-show-home" %></div>
   </div>
-
+</div>
 </div>

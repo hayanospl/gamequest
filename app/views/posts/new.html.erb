@@ -20,7 +20,25 @@
         <div class="post-new-margin">タグ</div>
         <div><%= f.text_field :tag_list, value: @post.tag_list.join(','), class: "post-new-tag" %></div>
         <small id="tag-tip" class="form-text text-muted">タグを入力してください(, で複数作れます)</small>
-        <div class="post-new-image">画像: <%= f.file_field :image, accept: 'image/jpeg, image/gif, image/png, video/*'%></div>
+        
+        <div class="post-new-image">
+          <label>
+            <span class="btn btn-primary">
+              画像 <%= f.file_field :image, accept: 'image/jpeg, image/gif, image/png, video/*', style: "display:none"%>
+            </span>
+          </label>
+          <input type="text" class="form-control" readonly="">
+
+          <script>
+            $(document).on('change', ':file', function(){
+              var input = $(this),
+              numFiles = input.get(0).files ? input.get(0).files.length : 1,
+              label = input.val().replace(/\\/g, '/').replace(/.*\//, '');
+              input.parent().parent().next(':text').val(label);
+            });
+          </script>
+        </div>
+
       <div><%= f.submit "投稿する", class: "post-new-submit"%></div>
     <% end %>
 </div>

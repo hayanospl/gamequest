@@ -6,9 +6,9 @@
 .post-new-container{
   display: flex;
   flex-direction: column;
-  margin: 0% 10%;
-  align-items: center;
-  width: 80%;
+  margin: 0% 30%;
+
+  width: 40%;
   border-left: 1px solid #ddd;
   border-right: 1px solid #ddd;
 }
@@ -39,9 +39,14 @@
   margin-bottom: 10px;
 }
 .post-new-image{
+  display: flex;
+  flex-direction: row;
   margin-bottom: 20px;
 }
 
+.form-control{
+  flex: 1;
+}
 .post-new-submit{
   width: 100%;
   border: 1px solid #00005d; 
@@ -170,6 +175,11 @@ span a{
   border-bottom: 1px solid #ddd;
 }
 
+.post-new-image-comment{
+  display: flex;
+  width: 70%;
+}
+
 .comment-like-and-delete{
   display: flex;
   flex-direction: column;
@@ -182,21 +192,12 @@ span a{
 
 .comment-submit{
   border: 1px solid #00005d; 
-  border-radius: 20px;
+  border-radius: 3px;
   background-color: #00005d;
   color: white;
+  width: 70%;
   font-weight: bold;
 }
-
-.comment-image-form {
-  display: none;
-  width: 10px;
-  height: 10px;
-}
-  
-// input[type="image"]::before{
-  // content:"添付ファイル";
-// } 画像添付の横にファイル名が表示されるようにする javascript使う？
 
 .comment-image-input-btn{
   border: 1px solid #00005d; 

@@ -1,15 +1,12 @@
-header {
+.header {
   display: flex;
+  flex-direction: row;
   justify-content: space-between;
   background-color: #00005d;
   align-items: center;
   margin-bottom: 20px;
   padding: 0 4%;
   font-weight: bold;
-}
-
-.header{
-  display: flex;
 }
 
 .header-left{
