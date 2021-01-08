@@ -1,52 +1,60 @@
-<h1>検索</h1>
-<p>タイトルか本文のキーワードにヒットします</p>
-<p>いいねの数は、入力した数字以上のいいね数を持つ投稿を検索します</p>
-<%= form_with url: search_posts_path, method: :get, local: true do |f| %>
-  <%= f.text_field :keyword, placeholder: "キーワードを一つ入力"%></br>
-  <%= f.text_field :tag_name, placeholder: "タグを一つ入力"%></br>
-  <%= f.text_field :likecount, placeholder: "いいねの数を入力"%>
-  <%= f.select :inequality, [['←以上', 'greater'], ['←以下', 'less']]%></br>
-  <%= f.select :sort, [['投稿日時が新しい順', 'new'],
-                      ['投稿日時が古い順', 'old'],
-                      ['いいねが多い順', 'likes'],
-                      ['いいねが少ない順', 'dislikes']] %>
-  <%= f.submit :検索 %>
-<% end %>
+<div class="main-contents">
+  <div class="search-index">
+    <%= form_with url: search_posts_path, method: :get, local: true do |f| %>
+      
+        <div><%= f.text_field :keyword, placeholder: "キーワード検索", class: "search-keyword"%></div>
+        <small id="title-tip" class="form-text text-muted">タイトルか本文のキーワードにヒットします</small>
+        
+        <div><%= f.text_field :tag_name, placeholder: "タグ検索", class: "search-tag"%></div>
+        <small id="title-tip" class="form-text text-muted">タグ一つにヒットします</small>
 
-<h5>検索結果</h5>
-<table class="table">
-  <thead>
-    <tr>
-      <th scope="col">既読</th>
-      <th scope="col">NO.</th>
-      <th scope="col">ユーザー</th>
-      <th scope="col">タイトル</th>
-      <th scope="col">本文</th>
-      <th scope="col">タグ</th>
-      <th scope="col">返信数</th>
-      <th scope="col">いいね数</th>
-      <th scope="col">投稿詳細</th>
-    </tr>
-  </thead>
-  <tbody>
-      <% @posts.each do |post| %>
-        <tr>
-          <%= render 'shared/alreadyread', post: post %>
-          <th scope="row"><%= post.id %></th>
-          <td scope="row"><%= post.user.name %></td>
-          <td scope="row"><%= post.title %></td>
-          <td scope="row"><%= post.content %></td>
-          <td scope="row">
-                    <%  post.tag_list.each do |tag| %>
-                          <%= link_to tag, search_posts_path(tag_name: tag) %>
-                    <% end %>
-            </td>
-          <td scope="row"><%= post.comments.count %></td>
-          <td scope="row"><%= post.likes.count %></td>
-          <td scope="row"><%= link_to "詳細", post_path(post.id) %></td>
-        </tr>
+        <div><%= f.text_field :likecount, placeholder: "いいねの数を入力", class: "search-like"%><%= f.select :inequality, [['←以上', 'greater'], ['←以下', 'less']], {}, {class: "search-like-range"}%></div>
+        <div></div>
+
+        <div><%= f.select :sort, [['投稿日時が新しい順', 'new'],
+                            ['投稿日時が古い順', 'old'],
+                            ['いいねが多い順', 'likes'],
+                            ['いいねが少ない順', 'dislikes']], {}, {class: "search-sort"} %></div>
+        <div class="search-button-container"><%= f.submit :検索, class: "search-button" %></div>
     <% end %>
-  </tbody>
-</table>
+  </div>
 
-<%= paginate @posts unless @posts.blank? %>
+  <h3 class="title-index">投稿一覧</h3>
+    <% @posts.each do |post| %>
+      <div class="post-index">
+          <div class="overall-container">
+              <%= link_to post_path(post.id) do %>
+                <div class="title"><%= post.title %></div>
+              <% end %>
+
+              <div class="tag-container">
+                <% post.tag_list.each do |tag| %>
+                  <span class="post-tag"><%= link_to tag, root_path(tag_name: tag) %></span>
+                <% end %>
+              </div>
+
+              <div class="other-container">
+                <% if user_signed_in? %>
+                  <div class="already-read"><%= render 'shared/alreadyread', post: post %></div>
+                <% end %>
+
+                <div class="comments-count"><i class="far fa-comment"></i> <%=  post.comments.count %></div>
+                <div class="likes-count"><i class="far fa-heart"></i> <%=  post.likes.count %></div>
+
+                <div class="user-info">
+                    <% if post.user.image? %>
+                      <div><%= image_tag post.user.image.url, class: "user-index-icon" %></div>
+                    <% else %>
+                      <div><%= image_tag "/assets/default.jpg", :size => '15x15' %></div>
+                    <% end %>
+                    <div class="user-name"> <%= post.user.name %></div>
+                </div>
+              </div>
+
+          </div>
+
+      </div>
+    <% end %>
+    
+<div class="paginate"><%= paginate @posts unless @posts.blank? %></div>
+</div>

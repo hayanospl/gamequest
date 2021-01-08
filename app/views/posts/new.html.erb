@@ -1,11 +1,44 @@
-<span>ログイン中のユーザー: <%= current_user.name %></span>
+<div class="post-new-container">
+  <% if current_user.image? %>
+  <div><%= image_tag current_user.image.url, class: "post-new-user-icon" %></div>
+  <% else %>
+  <div><%= image_tag "/assets/default.jpg", :size => '50x50' %></div>
+  <% end %> 
 
-<%= form_with(model: @post, local: true) do |f| %>
-<%= render 'shared/post_error_messages', object: f.object %>
-  <div class="field">
-    <%= f.text_field :title, placeholder: "タイトル" %></br>
-    <%= f.text_area :content, placeholder: "質問を自由に書き込んでください" %></br>
-    <%= f.text_field :tag_list, value: @post.tag_list.join(','), placeholder: "タグ(, で複数作れます)" %></br>
-    <p>画像: <%= f.file_field :image, accept: 'image/jpeg, image/gif, image/png, video/*'%></p></br>
-  <%= f.submit "投稿する" %>
-<% end %>
+
+    <%= form_with(model: @post, local: true) do |f| %>
+    <%= render 'shared/post_error_messages', object: f.object %>
+
+        <div class="post-new-margin">投稿タイトル</div>
+        <div><%= f.text_field :title, class: "post-new-title" %></div>
+        <small id="title-tip" class="form-text text-muted">タイトルを入力してください</small>
+
+        <div class="post-new-margin">投稿内容</div>
+        <div><%= f.text_area :content, class: "post-new-content" %></div>
+        <small id="content-tip" class="form-text text-muted">投稿内容を入力してください</small>
+
+        <div class="post-new-margin">タグ</div>
+        <div><%= f.text_field :tag_list, value: @post.tag_list.join(','), class: "post-new-tag" %></div>
+        <small id="tag-tip" class="form-text text-muted">タグを入力してください(, で複数作れます)</small>
+        
+        <div class="post-new-image">
+          <label>
+            <span class="btn btn-primary">
+              画像 <%= f.file_field :image, accept: 'image/jpeg, image/gif, image/png, video/*', style: "display:none"%>
+            </span>
+          </label>
+          <input type="text" class="form-control" readonly="">
+
+          <script>
+            $(document).on('change', ':file', function(){
+              var input = $(this),
+              numFiles = input.get(0).files ? input.get(0).files.length : 1,
+              label = input.val().replace(/\\/g, '/').replace(/.*\//, '');
+              input.parent().parent().next(':text').val(label);
+            });
+          </script>
+        </div>
+
+      <div><%= f.submit "投稿する", class: "post-new-submit"%></div>
+    <% end %>
+</div>

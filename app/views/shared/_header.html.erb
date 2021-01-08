@@ -1,0 +1,19 @@
+<header class="header">
+  <div class="header-left">
+    <div><%= link_to "Gamequest", root_path %></div>
+  </div>
+
+  <div class="header-right">
+     <div><%= link_to "ホーム", root_path %></div>
+     <div><%= link_to "検索", search_posts_path %></div>
+     <% if user_signed_in? %>
+      <div><%= link_to "投稿", new_post_path %></div>
+      <div><%= link_to "マイページ", users_show_path %></div>
+      <div><%= link_to "ログアウト", logout_path, method: :delete %></div>
+     <% else %>
+      <div><%= link_to "新規登録", users_create_path %></div>
+      <div><%= link_to "ログイン", login_path %></div>
+      <div><%= link_to "twitterログイン", user_twitter_omniauth_authorize_path %></div>
+     <% end %>
+  </div>
+</header>
