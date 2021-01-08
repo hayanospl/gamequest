@@ -42,11 +42,14 @@
   flex-direction: row;
 }
 
+.user-show-image{
+  margin-bottom: 20px;
+}
 .user-show-edit-button{
-  border: 1px solid #00a9ff; 
+  border: 1px solid #00005d; 
   border-radius: 20px;
   background-color: white;
-  color: rgb(0, 208, 255);
+  color: #00005d;
   font-weight: bold;
 }
 

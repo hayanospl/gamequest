@@ -35,12 +35,20 @@
   width: 100%;
 }
 
+.form-text{
+  margin-bottom: 10px;
+}
+.post-new-image{
+  margin-bottom: 20px;
+}
+
 .post-new-submit{
-  border: 1px solid #00a9ff; 
-  border-radius: 20px;
-  background-color: #00a9ff;
+  width: 100%;
+  border: 1px solid #00005d; 
+  background-color: #00005d;
   color: white;
   font-weight: bold;
+  border-radius: 3px;
   justify-content: center;
 }
 
@@ -109,17 +117,17 @@ span a{
 }
 
 .follow{
-  border: 1px solid #00a9ff; 
+  border: 1px solid #00005d; 
   border-radius: 20px;
   background-color: white;
-  color: rgb(0, 208, 255);
+  color: #00005d;
   font-weight: bold;
 }
 
 .follow-release{
-  border: 1px solid #00a9ff; 
+  border: 1px solid #00005d; 
   border-radius: 20px;
-  background-color: #00a9ff;
+  background-color:#00005d;
   color: white;
   font-weight: bold;
 }
@@ -143,7 +151,7 @@ span a{
 .post-show-comments{
   font-size: 24px;
   font-weight: bold;
-  border-bottom: 3px solid gray;
+  border-bottom: 3px solid #ddd;
 }
 
 .comment-image img{
@@ -173,9 +181,9 @@ span a{
 }
 
 .comment-submit{
-  border: 1px solid #00a9ff; 
+  border: 1px solid #00005d; 
   border-radius: 20px;
-  background-color: #00a9ff;
+  background-color: #00005d;
   color: white;
   font-weight: bold;
 }
@@ -191,9 +199,9 @@ span a{
 // } 画像添付の横にファイル名が表示されるようにする javascript使う？
 
 .comment-image-input-btn{
-  border: 1px solid #00a9ff; 
+  border: 1px solid #00005d; 
   border-radius: 20px;
-  background-color: #00a9ff;
+  background-color: #00005d;
   color: white;
   font-weight: bold;
 }
@@ -225,9 +233,10 @@ span a{
   justify-content: center;
 }
 .search-button{
-  border: 1px solid #00a9ff; 
-  border-radius: 20px;
-  background-color: #00a9ff;
+  border: 1px solid #00005d; 
+  border-radius: 3px;
+  width: 100%;
+  background-color: #00005d;
   color: white;
   font-weight: bold;
   text-align: center;

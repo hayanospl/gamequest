@@ -58,7 +58,7 @@
 
       </div>
     <% end %>
-<%= paginate @following_posts if @following_posts.present?-%>
+<div class="paginate"><%= paginate @following_posts if @following_posts.present?-%></div>
 </div>
 
 <div class="main-contents">
@@ -98,7 +98,7 @@
 
       </div>
     <% end %>
-<%= paginate @user_posts if @user_posts.present?-%>
+<div class="paginate"><%= paginate @user_posts if @user_posts.present?-%></div>
 </div>
 
 
@@ -142,5 +142,5 @@
       </div>
     <% end %>
 
-<%= paginate @likes if @likes.present?-%>
+<div class="paginate"><%= paginate @likes if @likes.present?-%></div>
 </div>

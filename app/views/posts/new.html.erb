@@ -20,7 +20,7 @@
         <div class="post-new-margin">タグ</div>
         <div><%= f.text_field :tag_list, value: @post.tag_list.join(','), class: "post-new-tag" %></div>
         <small id="tag-tip" class="form-text text-muted">タグを入力してください(, で複数作れます)</small>
-        <div>画像: <%= f.file_field :image, accept: 'image/jpeg, image/gif, image/png, video/*'%></div>
+        <div class="post-new-image">画像: <%= f.file_field :image, accept: 'image/jpeg, image/gif, image/png, video/*'%></div>
       <div><%= f.submit "投稿する", class: "post-new-submit"%></div>
     <% end %>
 </div>
