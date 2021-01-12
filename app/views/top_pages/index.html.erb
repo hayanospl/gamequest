@@ -28,7 +28,7 @@
                     <% if reco.user.image? %>
                       <div><%= image_tag post.reco.image.url, class: "user-index-icon" %></div>
                     <% else %>
-                      <div><%= image_tag "/assets/default.jpg", :size => '15x15' %></div>
+                      <div><%= image_tag "/assets/default.jpg", class: "user-index-icon" %></div>
                     <% end %>
                     <div class="user-name"> <%= reco.user.name %></div>
                 </div>
@@ -70,7 +70,7 @@
                     <% if post.user.image? %>
                       <div><%= image_tag post.user.image.url, class: "user-index-icon"  %></div>
                     <% else %>
-                      <div><%= image_tag "/assets/default.jpg", :size => '15x15' %></div>
+                      <div><%= image_tag "/assets/default.jpg", class: "user-index-icon" %></div>
                     <% end %>
                     <div class="user-name"> <%= post.user.name %></div>
                 </div>

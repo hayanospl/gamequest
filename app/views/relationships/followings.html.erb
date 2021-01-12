@@ -8,7 +8,7 @@
           <% if f.image? %>
             <div><%= image_tag f.image.url, class: "following-user-icon" %></div>
           <% else %>
-            <div><%= image_tag "/assets/default.jpg", :size => '30x30' %></div>
+            <div><%= image_tag "/assets/default.jpg", class: "following-user-icon" %></div>
           <% end %>
 
         <div class="following-index-profile">

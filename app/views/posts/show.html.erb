@@ -15,7 +15,7 @@
             <% if @post.user.image? %>
               <div><%= image_tag @post.image.url, class: "user-index-icon" %></div>
             <% else %>
-              <div><%= image_tag "/assets/default.jpg", :size => '15x15' %></div>
+              <div><%= image_tag "/assets/default.jpg", class: "user-index-icon" %></div>
             <% end %>
             <div class="post-show-username"><%= @post.user.name %></div>
             <div class="post-show-follow"><%= render 'relationships/follow_button', user: @post.user %></div>
@@ -28,9 +28,9 @@
 
       <% if @post.image? %>
         <% if @post.image.file.content_type.include?('image/') %>
-          <div class="post-image"><%= image_tag @post.image.url %></div>
+          <div><%= image_tag @post.image.url, class: "post-image" %></div>
         <% else %>
-          <div class="post-video"><%= video_tag @post.image.url, width: "30%", height: "30%", controls: true, autobuffer: true %></div>
+          <div ><%= video_tag @post.image.url, class: "post-video", controls: true, autobuffer: true %></div>
         <% end %>
       <% end %>
 
@@ -51,9 +51,9 @@
           <div class="comment-image">
             <% if c.image? %>
               <% if c.image.file.content_type.include?('image/') %>
-                <%= image_tag c.image.url %>
+                <%= image_tag c.image.url, class: "post-image" %>
               <% else %>
-                <%= video_tag c.image.url, width: "30%", height: "30%", controls: true, autobuffer: true %>
+                <%= video_tag c.image.url, class: "post-video", controls: true, autobuffer: true %>
               <% end %>
             <% end %>
           </div>
@@ -62,7 +62,7 @@
           <% if c.user.image? %>
             <div><%= image_tag c.user.image.url, class: "user-index-icon" %></div>
           <% else %>
-            <div><%= image_tag "/assets/default.jpg", :size => '15x15' %></div>
+            <div><%= image_tag "/assets/default.jpg", class: "user-index-icon" %></div>
           <% end %>
           <div><%= c.user.name %></div>
         </div>

@@ -24,8 +24,38 @@ User.create!(
 end
 
 users = User.order(:created_at).take(5)
+
 10.times do
   title = Faker::Lorem.sentence(word_count: 2)
   content = Faker::Lorem.sentence(word_count: 3)
   users.each { |user| user.posts.create!(title: title, content: content) }
 end
+
+posts = Post.all
+posts.each do |post|
+  post.tag_list.add("test", "game")
+  post.save
+end
+  # フォローフォロワー関係
+users = User.all
+user  = users.first
+following = users[2..10]
+followers = users[3..7]
+following.each { |followed| user.follow(followed)}
+followers.each { |follower| follower.follow(user)}
+
+#コメント、いいね、画像、
+Like.create(post_id: 50, user_id: 2)
+Comment.create(post_id: 50, user_id: 3, content: "testtesttest")
+
+Post.create(
+  user_id: 1,
+  title: 'image-test',
+  content: 'image-test',
+  image: open("./app/assets/images/default.jpg")
+)
+
+Comment.create(post_id: 51, 
+                user_id: 4, 
+                content: "testtesttesttest",
+                image: open("./app/assets/images/default.jpg"))

@@ -5,7 +5,7 @@
 
   <div class="header-right">
      <div><%= link_to "ホーム", root_path %></div>
-     <div><%= link_to "検索", search_posts_path %></div>
+     <div><%= link_to "検索", posts_path %></div>
      <% if user_signed_in? %>
       <div><%= link_to "投稿", new_post_path %></div>
       <div><%= link_to "マイページ", users_show_path %></div>

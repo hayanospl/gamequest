@@ -109,7 +109,6 @@ ActiveRecord::Schema.define(version: 2020_12_22_013654) do
     t.datetime "updated_at", precision: 6, null: false
     t.string "name", default: "", null: false
     t.text "profile"
-    t.string "profile_image_path"
     t.string "uid"
     t.string "provider"
     t.string "image"
