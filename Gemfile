@@ -40,6 +40,15 @@ group :development do
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring'
   gem 'spring-watcher-listen', '~> 2.0.0'
+
+  # ダミーデータ生成用
+  gem 'faker'
+
+  # デバック用
+  gem 'pry-byebug'
+
+  # N+1検出用
+  gem 'bullet'
 end
 
 group :test do
@@ -65,21 +74,12 @@ gem 'devise-i18n'
 gem 'bootstrap', '~> 4.3.1'
 gem 'jquery-rails'
 
-# ダミーデータ生成用
-gem 'faker'
-
 # 画像アップロード
 gem 'carrierwave'
 gem 'mini_magick'
 
-# デバック用
-gem 'pry-byebug'
-
 # ページネーション用
 gem 'kaminari'
-
-# N+1検出用
-gem 'bullet'
 
 # タグ生成用
 gem 'acts-as-taggable-on', '~> 6.5'

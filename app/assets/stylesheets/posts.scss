@@ -141,7 +141,11 @@ span a{
   margin: 15px 0px;
 }
 
-.post-image img{
+.post-image {
+  width: 100%;
+}
+
+.post-video {
   width: 100%;
 }
 
@@ -170,7 +174,6 @@ span a{
 }
 
 .comment-body{
-  
   padding: 10px;
   border-bottom: 1px solid #ddd;
 }

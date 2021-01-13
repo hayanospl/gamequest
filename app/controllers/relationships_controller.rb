@@ -25,7 +25,7 @@ class RelationshipsController < ApplicationController
 
   def follow
     @following = User.find(params[:id])
-    @following_posts = @following.posts.includes(:taggings).order("created_at DESC").page(params[:page]).per(10)
+    @following_posts = @following.posts.includes(:taggings).order("created_at DESC").page(params[:page]).per(DEFAULT_PAGE_ITEM_COUNT)
   end
 
 end

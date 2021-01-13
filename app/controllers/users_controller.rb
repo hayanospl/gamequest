@@ -2,9 +2,9 @@ class UsersController < ApplicationController
 before_action :authenticate_user!, only: [:show]
   def show
     @user = current_user
-    @user_posts = @user.posts.includes(:taggings).order("created_at DESC").page(params[:page]).per(10)
-    @likes = @user.likes.order("created_at DESC").page(params[:page]).per(10)
-    @following_posts = Post.includes(:user, :taggings).where(user_id: @user.followings.ids).order("created_at DESC").page(params[:page]).per(10)
+    @user_posts = @user.posts.includes(:taggings).order("created_at DESC").page(params[:page]).per(DEFAULT_PAGE_ITEM_COUNT)
+    @likes = @user.likes.order("created_at DESC").page(params[:page]).per(DEFAULT_PAGE_ITEM_COUNT)
+    @following_posts = Post.includes(:user, :taggings).where(user_id: @user.followings.ids).order("created_at DESC").page(params[:page]).per(DEFAULT_PAGE_ITEM_COUNT)
   end
 
   def edit

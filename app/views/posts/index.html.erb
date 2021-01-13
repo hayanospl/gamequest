@@ -1,6 +1,6 @@
 <div class="main-contents">
   <div class="search-index">
-    <%= form_with url: search_posts_path, method: :get, local: true do |f| %>
+    <%= form_with url: posts_path, method: :get, local: true do |f| %>
       
         <div><%= f.text_field :keyword, placeholder: "キーワード検索", class: "search-keyword"%></div>
         <small id="title-tip" class="form-text text-muted">タイトルか本文のキーワードにヒットします</small>
@@ -45,7 +45,7 @@
                     <% if post.user.image? %>
                       <div><%= image_tag post.user.image.url, class: "user-index-icon" %></div>
                     <% else %>
-                      <div><%= image_tag "/assets/default.jpg", :size => '15x15' %></div>
+                      <div><%= image_tag "/assets/default.jpg", class: "user-index-icon" %></div>
                     <% end %>
                     <div class="user-name"> <%= post.user.name %></div>
                 </div>

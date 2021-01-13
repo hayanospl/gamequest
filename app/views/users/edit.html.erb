@@ -3,7 +3,7 @@
     <% if current_user.image? %>
       <div><%= image_tag current_user.image.url, class: "post-new-user-icon" %></div>
     <% else %>
-      <div><%= image_tag "/assets/default.jpg", :size => '30x30' %></div>
+      <div><%= image_tag "/assets/default.jpg", class: "post-new-user-icon" %></div>
     <% end %> 
 
     <%= form_with(model: @user, url: users_edit_path, local: true) do |f| %>

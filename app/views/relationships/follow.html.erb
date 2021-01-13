@@ -5,7 +5,7 @@
       <% if f.image? %>
         <div><%= image_tag f.image.url, class: "user-show-user-icon" %></div>
       <% else %>
-        <div><%= image_tag "/assets/default.jpg", :size => '130x130' %></div>
+        <div><%= image_tag "/assets/default.jpg", class: "user-show-user-icon" %></div>
       <% end %>
     </div>
     <div class="user-show-name"><%= f.name %></div>
@@ -40,7 +40,7 @@
                     <% if post.user.image? %>
                       <div><%= image_tag post.user.image.url, class: "user-index-icon" %></div>
                     <% else %>
-                      <div><%= image_tag "/assets/default.jpg", :size => '15x15' %></div>
+                      <div><%= image_tag "/assets/default.jpg", class: "user-index-icon" %></div>
                     <% end %>
                     <div class="user-name"> <%= post.user.name %></div>
                 </div>
