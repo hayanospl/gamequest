@@ -1,10 +1,12 @@
 module Posts
   module Postservices
 
+    Recently_Read = 30
+    CASE_NUMBER = 10
+
     def self.recommend_tag(current_user)
     
-
-      recommends = current_user.already_reads.order("created_at DESC").limit(30)
+      recommends = current_user.already_reads.order("created_at DESC").limit(Recently_Read)
       
       array = Array.new
       recommends.each do |reco|
@@ -21,14 +23,14 @@ module Posts
                   .sample
     end
 
-    def self.recommend_posts(current_user, recommend_tag, params)
-      posts = Post.tagged_with(recommend_tag).where.not(user_id: current_user.id)
+    def self.recommend_posts(user_id, recommend_tag, params)
+      posts = Post.tagged_with(recommend_tag).where.not(user_id: user_id)
       return posts.select('posts.*', 'count(already_reads.id) AS already_reads')
                               .left_joins(:already_reads)
                               .group('posts.id')
                               .order('already_reads desc')
-                              .limit(10)
-                              .page(params[:page]).per(10)
+                              .limit(CASE_NUMBER)
+                              .page(params[:page]).per(CASE_NUMBER)
     end
 
     def self.search(params)
@@ -40,7 +42,7 @@ module Posts
       end
   
       if params[:tag_name].blank? && params[:keyword].blank?
-        posts = Post.all.includes(:user, :taggings)
+        posts = Post.all.includes(:user, :taggings).order('created_at desc')
       end
   
       case params[:sort]
@@ -90,8 +92,12 @@ module Posts
   
       end
   
-      return Kaminari.paginate_array(posts).page(params[:page]).per(10) unless posts.blank?
-      return Post.none if posts.blank?
+      
+      if posts.blank?
+        return Post.none
+      end
+      
+      Kaminari.paginate_array(posts).page(params[:page]).per(CASE_NUMBER)
 
     end
   end
