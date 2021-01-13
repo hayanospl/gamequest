@@ -1,9 +1,9 @@
 class TopPagesController < ApplicationController
   def index
-    @posts = Post.includes(:user, :taggings).order("created_at DESC").page(params[:page]).per(CASE_NUMBER)
+    @posts = Post.includes(:user, :taggings).order("created_at DESC").page(params[:page]).per(DEFAULT_PAGE_ITEM_COUNT)
 
     if params[:tag_name]
-      @posts = Post.tagged_with("#{params[:tag_name]}").includes(:user, :taggings).page(params[:page]).per(CASE_NUMBER)
+      @posts = Post.tagged_with("#{params[:tag_name]}").includes(:user, :taggings).page(params[:page]).per(DEFAULT_PAGE_ITEM_COUNT)
     end
 
     if user_signed_in?

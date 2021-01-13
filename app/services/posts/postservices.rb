@@ -1,12 +1,9 @@
 module Posts
   module Postservices
 
-    Recently_Read = 30
-    CASE_NUMBER = 10
-
     def self.recommend_tag(current_user)
     
-      recommends = current_user.already_reads.order("created_at DESC").limit(Recently_Read)
+      recommends = current_user.already_reads.order("created_at DESC").limit(RECENTLY_READ_POST_COUNT)
       
       array = Array.new
       recommends.each do |reco|
@@ -29,8 +26,8 @@ module Posts
                               .left_joins(:already_reads)
                               .group('posts.id')
                               .order('already_reads desc')
-                              .limit(CASE_NUMBER)
-                              .page(params[:page]).per(CASE_NUMBER)
+                              .limit(DEFAULT_PAGE_ITEM_COUNT)
+                              .page(params[:page]).per(DEFAULT_PAGE_ITEM_COUNT)
     end
 
     def self.search(params)
@@ -97,7 +94,7 @@ module Posts
         return Post.none
       end
       
-      Kaminari.paginate_array(posts).page(params[:page]).per(CASE_NUMBER)
+      Kaminari.paginate_array(posts).page(params[:page]).per(DEFAULT_PAGE_ITEM_COUNT)
 
     end
   end
