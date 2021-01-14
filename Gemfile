@@ -89,3 +89,6 @@ gem 'omniauth'
 gem 'omniauth-twitter'
 gem 'dotenv'
 gem 'dotenv-rails'
+
+# herokuアップロード用
+gem 'uglifier'
