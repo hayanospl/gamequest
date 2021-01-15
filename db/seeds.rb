@@ -52,10 +52,10 @@ Post.create(
   user_id: 1,
   title: 'image-test',
   content: 'image-test',
-  image: open("./app/assets/images/default.jpg")
+  image: File.open("./app/assets/images/default.jpg")
 )
 
 Comment.create(post_id: 51, 
                 user_id: 4, 
                 content: "testtesttesttest",
-                image: open("./app/assets/images/default.jpg"))
+                image: File.open("./app/assets/images/default.jpg"))
