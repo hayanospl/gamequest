@@ -26,6 +26,7 @@ module Posts
                               .left_joins(:already_reads)
                               .group('posts.id')
                               .order('already_reads desc')
+                              .order('created_at desc')
                               .limit(DEFAULT_PAGE_ITEM_COUNT)
                               .page(params[:page]).per(DEFAULT_PAGE_ITEM_COUNT)
     end
