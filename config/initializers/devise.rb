@@ -312,7 +312,7 @@ Devise.setup do |config|
     config.omniauth :twitter, ENV['TWITTER_API_KEY'], ENV['TWITTER_API_SECRET'], callback_url: ENV['TWITTER_CALLBACK_URL']
   end
 
-  if Rails.env.producton?
+  if Rails.env.production?
     config.omniauth :twitter, ENV['TWITTER_API_KEY'], ENV['TWITTER_API_SECRET'], callback_url: ENV['TWITTER_HEROKU_CALLBACK_URL']
   end
 end
