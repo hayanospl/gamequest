@@ -28,13 +28,13 @@ Post.create(
   user_id: 1,
   title: 'image-test',
   content: 'image-test',
-  image: open("public/images/default.jpg")
+  image: open("#{Rails.root}/public/images/default.jpg")
 )
 
 Comment.create(post_id: 1, 
                 user_id: 11, 
                 content: "testtesttesttest",
-                image: open("public/images/default.jpg"))
+                image: open("#{Rails.root}/public/images/default.jpg"))
 
 
 Like.create(post_id: 1, user_id: 11)
