@@ -28,13 +28,13 @@ Post.create(
   user_id: 1,
   title: 'image-test',
   content: 'image-test',
-  image: open("./public/assets/images/default.jpg")
+  image: open("./app/assets/images/default.jpg")
 )
 
 Comment.create(post_id: 1, 
                 user_id: 11, 
                 content: "testtesttesttest",
-                image: open("./public/assets/images/default.jpg"))
+                image: open("./app/assets/images/default.jpg"))
 
 
 Like.create(post_id: 1, user_id: 11)
