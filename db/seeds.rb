@@ -28,7 +28,7 @@ Post.create(
   user_id: 1,
   title: 'image-test',
   content: 'image-test',
-  image: open("public/uploads/post/image/1/66be7e87-9907-42ac-b67d-8b642c960661.jpg")
+  image: open("https://gamequest-for-your-improvement.herokuapp.com/assets/images/default.jpg")
 )
 
 Comment.create(post_id: 1, 
