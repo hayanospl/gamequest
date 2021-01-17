@@ -15,6 +15,7 @@ class PostsController < ApplicationController
       current_user.already_reads.create(post_id: @post.id)
     end
     @comment = Comment.new
+    # binding.pry
   end
 
   def create
