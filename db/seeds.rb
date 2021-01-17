@@ -27,14 +27,12 @@ end
 Post.create(
   user_id: 1,
   title: 'image-test',
-  content: 'image-test',
-  image: open("./app/assets/images/default.jpg")
+  content: 'image-test')
 )
 
 Comment.create(post_id: 1, 
                 user_id: 11, 
-                content: "testtesttesttest",
-                image: open("./app/assets/images/default.jpg"))
+                content: "testtesttesttest")
 
 
 Like.create(post_id: 1, user_id: 11)

@@ -29,9 +29,15 @@
       <% if @post.image? %>
         <% if @post.image.file.content_type.include?('image/') %>
           <div><%= image_tag @post.image.url, class: "post-image" %></div>
-        <% else %>
+        <% elsif %>
           <div ><%= video_tag @post.image.url, class: "post-video", controls: true, autobuffer: true %></div>
+        <% else %>
+          <div><%= image_tag "/assets/default.jpg", class: "post-image" %></div>
         <% end %>
+      <% end %>
+
+      <% if @post.image.blank? %>
+        <div><%= image_tag "/assets/default.jpg", class: "post-image" %></div>
       <% end %>
 
       <div id="likes_buttons_<%= @post.id %>">
@@ -56,6 +62,11 @@
                 <%= video_tag c.image.url, class: "post-video", controls: true, autobuffer: true %>
               <% end %>
             <% end %>
+
+            <% if c.image.blank? %>
+              <div><%= image_tag "/assets/default.jpg", class: "post-image" %></div>
+            <% end %>
+            
           </div>
 
         <div class="comment-user">
