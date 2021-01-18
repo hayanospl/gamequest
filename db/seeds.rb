@@ -23,6 +23,20 @@ User.create!(
                profile: profile)
 end
 
+ #コメント、いいね、画像、
+Post.create(
+  user_id: 1,
+  title: 'image-test',
+  content: 'image-test')
+)
+
+Comment.create(post_id: 1, 
+                user_id: 11, 
+                content: "testtesttesttest")
+
+
+Like.create(post_id: 1, user_id: 11)
+Comment.create(post_id: 1, user_id: 31, content: "testtesttest")
 users = User.order(:created_at).take(5)
 
 10.times do
@@ -44,18 +58,3 @@ followers = users[3..7]
 following.each { |followed| user.follow(followed)}
 followers.each { |follower| follower.follow(user)}
 
-#コメント、いいね、画像、
-Like.create(post_id: 50, user_id: 2)
-Comment.create(post_id: 50, user_id: 3, content: "testtesttest")
-
-Post.create(
-  user_id: 1,
-  title: 'image-test',
-  content: 'image-test',
-  image: open("./app/assets/images/default.jpg")
-)
-
-Comment.create(post_id: 51, 
-                user_id: 4, 
-                content: "testtesttesttest",
-                image: open("./app/assets/images/default.jpg"))

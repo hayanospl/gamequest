@@ -41,9 +41,6 @@ group :development do
   gem 'spring'
   gem 'spring-watcher-listen', '~> 2.0.0'
 
-  # ダミーデータ生成用
-  gem 'faker'
-
   # デバック用
   gem 'pry-byebug'
 
@@ -89,3 +86,10 @@ gem 'omniauth'
 gem 'omniauth-twitter'
 gem 'dotenv'
 gem 'dotenv-rails'
+
+# herokuアップロード用
+gem 'uglifier'
+
+
+# ダミーデータ生成用
+gem 'faker'
