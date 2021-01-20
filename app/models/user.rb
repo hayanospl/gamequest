@@ -1,6 +1,7 @@
 class User < ApplicationRecord
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
+  validates :name, presence: true
   has_many :posts, dependent: :destroy
   has_many :comments
   has_many :likes
@@ -52,4 +53,5 @@ class User < ApplicationRecord
   def self.dummy_email(auth)
     "#{auth.uid}-#{auth.provider}@example.com"
   end
+
 end
