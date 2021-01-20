@@ -13,7 +13,7 @@ RSpec.describe User, type: :model do
       it '無効である' do
         user = build(:user, name: nil)
         user.valid?
-        expect(user.errors[:name]).to eq ["を入力してください"]
+        expect(user.errors.full_messages).to eq ["Nameを入力してください"]
       end
     end
 
@@ -21,7 +21,7 @@ RSpec.describe User, type: :model do
       it '無効である' do
         user = build(:user, email: nil)
         user.valid?
-        expect(user.errors[:email]).to eq ["を入力してください"]
+        expect(user.errors.full_messages).to eq ["Eメールを入力してください"]
       end
     end
 
@@ -29,7 +29,7 @@ RSpec.describe User, type: :model do
       it '無効である' do
         user = build(:user, password: nil)
         user.valid?
-        expect(user.errors[:password]).to eq ["を入力してください"]
+        expect(user.errors.full_messages).to eq ["パスワードを入力してください"]
       end
     end
 
@@ -41,7 +41,7 @@ RSpec.describe User, type: :model do
       it '無効である' do
         user = build(:user, email: "a")
         user.valid?
-        expect(user.errors[:email]).to eq ["は不正な値です"]
+        expect(user.errors.full_messages).to eq ["Eメールは不正な値です"]
       end
     end
 
@@ -49,7 +49,7 @@ RSpec.describe User, type: :model do
         it '無効である' do
         user = build(:user, email: "a@")
         user.valid?
-        expect(user.errors[:email]).to eq ["は不正な値です"]
+        expect(user.errors.full_messages).to eq ["Eメールは不正な値です"]
       end
     end
 
@@ -92,7 +92,7 @@ RSpec.describe User, type: :model do
       it '無効である' do
         user = build(:user, password: "a"*5 )
         user.valid?
-        expect(user.errors[:password]).to eq ["は6文字以上で入力してください"]
+        expect(user.errors.full_messages).to eq ["パスワードは6文字以上で入力してください"]
       end
     end
 
