@@ -1,4 +1,3 @@
-require 'rails_helper'
 RSpec.describe Comment, type: :model do
   describe '本文 画像の有無' do
 
@@ -38,14 +37,7 @@ RSpec.describe Comment, type: :model do
 
     context 'コメントが1文字の時' do
       it '有効である' do
-        comment = build(:comment, content: "a"*1 )
-        expect(comment).to be_valid
-      end
-    end
-
-    context 'コメントが999文字の時' do
-      it '有効である' do
-        comment = build(:comment, content: "a"*999 )
+        comment = build(:comment, content: "a" )
         expect(comment).to be_valid
       end
     end
@@ -105,5 +97,30 @@ RSpec.describe Comment, type: :model do
       end
     end
 
+    context '画像ファイル形式がsvgの時' do
+      it '無効である' do
+        comment = create(:comment, :skip_validate, image: Rack::Test::UploadedFile.new(File.join(Rails.root, 'app/assets/images/iconmonstr-friend-3.svg')))
+        comment.valid?
+        expect(comment).to be_invalid
+      end
+    end
+
+    context '画像ファイル形式がepsの時' do
+      it '無効である' do
+        comment = create(:comment, :skip_validate, image: Rack::Test::UploadedFile.new(File.join(Rails.root, 'app/assets/images/iconmonstr-friend-3.eps')))
+        comment.valid?
+        expect(comment).to be_invalid
+      end
+    end
+
+    context '画像ファイル形式がpsdの時' do
+      it '無効である' do
+        comment = create(:comment, :skip_validate, image: Rack::Test::UploadedFile.new(File.join(Rails.root, 'app/assets/images/iconmonstr-friend-3.psd')))
+        comment.valid?
+        expect(comment).to be_invalid
+      end
+    end
+
   end
+  
 end

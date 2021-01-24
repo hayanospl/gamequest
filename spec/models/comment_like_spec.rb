@@ -1,4 +1,3 @@
-require 'rails_helper'
 RSpec.describe CommentLike, type: :model do
   describe '投稿(post)をいいねする' do
 
