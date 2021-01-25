@@ -5,8 +5,8 @@ class Post < ApplicationRecord
   has_many :already_reads, dependent: :destroy
   acts_as_taggable
   validates :user_id, presence: true
-  validates :title,   presence: true
-  validates :content, presence: true
+  validates :title,   presence: true, length: {maximum: 200}
+  validates :content, presence: true, length: {maximum: 2000}
   mount_uploader :image, ImageUploader
 
   def liked_by?(user)

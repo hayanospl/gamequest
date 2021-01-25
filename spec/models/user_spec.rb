@@ -1,4 +1,3 @@
-require 'rails_helper'
 RSpec.describe User, type: :model do
   describe '名前、メール、パスワードの有無' do
 
@@ -97,5 +96,60 @@ RSpec.describe User, type: :model do
     end
 
   end
+
+  describe 'ユーザー削除の確認' do
+
+    context 'ユーザーが削除された時' do
+      it 'ユーザーレコードが無くなる' do
+        user = create(:user)
+        expect { user.destroy }.to change { User.count }.by(-1)
+      end
+    end
+
+    context 'ユーザーが削除された時' do
+      it 'ユーザーに紐づくポストが無くなる' do
+        post = create(:post)
+        expect { User.find(post.user_id).destroy }.to change { Post.count }.by(-1)
+      end
+    end
+
+    context 'ユーザーが削除された時' do
+      it 'ユーザーに紐づくポストに紐づくいいねが無くなる' do
+        like = create(:like)
+        expect { User.find(like.user_id).destroy }.to change { Like.count }.by(-1)
+      end
+    end
+
+    context 'ユーザーが削除された時' do
+      it 'ポストに紐づくコメントが無くなる' do
+        comment = create(:comment)
+        expect { User.find(comment.user_id).destroy }.to change { Comment.count }.by(-1)
+      end
+    end
+
+    context 'ユーザーが削除された時' do
+      it 'コメントに紐づくいいねが無くなる' do
+        commentlike = create(:commentlike)
+        expect { User.find(commentlike.user_id).destroy }.to change { CommentLike.count }.by(-1)
+      end
+    end
+
+    context 'フォローするユーザーが削除された時' do
+      it 'relationshipが無くなる' do
+        relationship = create(:relationship)
+        expect { User.find(relationship.user_id).destroy }.to change { Relationship.count }.by(-1)
+      end
+    end
+
+    context 'フォローされるユーザーが削除された時' do
+      it 'relationshipが無くなる' do
+        relationship = create(:relationship)
+        expect { User.find(relationship.follow_id).destroy }.to change { Relationship.count }.by(-1)
+      end
+    end
+
+  end
+
+
 
 end
