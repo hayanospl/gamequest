@@ -134,6 +134,20 @@ RSpec.describe User, type: :model do
       end
     end
 
+    context 'フォローするユーザーが削除された時' do
+      it 'relationshipが無くなる' do
+        relationship = create(:relationship)
+        expect { User.find(relationship.user_id).destroy }.to change { Relationship.count }.by(-1)
+      end
+    end
+
+    context 'フォローされるユーザーが削除された時' do
+      it 'relationshipが無くなる' do
+        relationship = create(:relationship)
+        expect { User.find(relationship.follow_id).destroy }.to change { Relationship.count }.by(-1)
+      end
+    end
+
   end
 
 
