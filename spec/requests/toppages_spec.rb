@@ -2,9 +2,11 @@ RSpec.describe "TopPages", type: :request do
   describe "GET root_path" do
 #ホーム画面のテスト
     context 'root_pathを取得した時' do
-      
+
+      let(:post) { create(:post) }
+
       before do
-        @post = create(:post)
+        post
         get root_path
       end
 
@@ -17,23 +19,23 @@ RSpec.describe "TopPages", type: :request do
       end
 
       it '投稿一覧に投稿者の名前が表示されること' do
-        expect(response.body).to include(@post.user.name)
+        expect(response.body).to include(post.user.name)
       end
 
       it '投稿一覧に投稿タイトルが表示されること' do
-        expect(response.body).to include(@post.title)
+        expect(response.body).to include(post.title)
       end
 
       it '投稿一覧にタグが表示されること' do
-        expect(response.body).to include(@post.tag_list[0])
+         expect(response.body).to include(post.tag_list[0])
       end
 
       it '投稿一覧に投稿本文が表示されていないこと' do
-        expect(response.body).not_to include(@post.content)
+        expect(response.body).not_to include(post.content)
       end
 
       it '投稿一覧に投稿画像が表示されていないこと' do
-        expect(response.body).not_to include(@post.image.url)
+        expect(response.body).not_to include(post.image.url)
       end
     end
 
