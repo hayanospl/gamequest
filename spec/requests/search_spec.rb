@@ -1,17 +1,32 @@
-RSpec.describe "TopPages", type: :request do
-  describe "GET root_path" do
-#ホーム画面のテスト
-    context 'root_pathを取得した時' do
+RSpec.describe "Search", type: :request do
+  describe "GET posts_path" do
 
-      let(:post) { create(:post) }
+    let!(:post) { create(:post) }
 
-      before do
-        post
-        get root_path
+    before do
+      get posts_path
+    end
+
+    context '検索画面を表示した時' do
+
+      it '検索画面の表示に成功すること' do
+        expect(response).to have_http_status(200)
       end
 
-      it 'ホーム画面の表示に成功すること' do
-        expect(response).to have_http_status(200)
+      it 'キーワード検索と表示されること' do
+        expect(response.body).to include("キーワード検索")
+      end
+
+      it 'タグ検索と表示されること' do
+        expect(response.body).to include("タグ検索")
+      end
+
+      it 'いいねの数と表示されること' do
+        expect(response.body).to include("いいねの数を入力")
+      end
+
+      it '検索と表示されること' do
+        expect(response.body).to include("検索")
       end
 
       it 'ホーム画面に「投稿一覧」というキーワードが表示されること' do
