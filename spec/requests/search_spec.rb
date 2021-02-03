@@ -57,34 +57,32 @@ RSpec.describe "Search", type: :request do
   end
 
   describe "キーワード検索のテスト" do
-    context '1~5のキーワードを含むpostをそれぞれ用意し、キーワード3で検索する時' do
+    context 'postを5つ用意し、1番目のpostのタイトルでキーワード検索する時' do
+      
+      let(:post) { create_list(:post, 5) }
       
       before do
-        post = []
-        5.times do |i|
-          post << create(:post, title: "#{i}のテスト")
-        end
-        get posts_path(keyword: "3")
+       get posts_path(keyword: "#{post[0].title}")
       end
      
-      it '1を含むpostは表示されない' do
-        expect(response.body).not_to include("1のテスト")
+      it '1番目に生成されたpostが表示されている' do
+        expect(response.body).to include("#{post[0].title}")
       end
 
-      it '2を含むpostは表示されない' do
-        expect(response.body).not_to include("2のテスト")
+      it '2番目に生成されたpostは表示されていない' do
+        expect(response.body).not_to include("#{post[1].title}")
       end
 
-      it '3を含むpostは表示される' do
-        expect(response.body).to include("3のテスト")
+      it '3番目に生成されたpostは表示されていない' do
+        expect(response.body).not_to include("#{post[2].title}")
       end
 
-      it '4を含むpostは表示されない' do
-        expect(response.body).not_to include("4のテスト")
+      it '4番目に生成されたpostは表示されていない' do
+        expect(response.body).not_to include("#{post[3].title}")
       end
 
-      it '5を含むpostは表示されない' do
-        expect(response.body).not_to include("5のテスト")
+      it '5番目に生成されたpostは表示されていない' do
+        expect(response.body).not_to include("#{post[4].title}")
       end
     end
 
