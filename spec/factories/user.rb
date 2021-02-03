@@ -1,9 +1,10 @@
 FactoryBot.define do
+
   factory :user do
-    name { "test" }
-    email { "test@test.test" }
-    password { "testtest"}
-    
+    name { Faker::Name.name }
+    email { Faker::Internet.free_email }
+    password { "password" }
+    profile { Faker::Lorem.sentence(word_count: 3) }
   end
 
   factory :user2, class: User do
