@@ -3,11 +3,11 @@ RSpec.describe "Post_show", type: :request do
 
     let(:post) { create(:post) }
     let(:user) { create(:user) }
-    let(:comment) { create(:comment, post_id: post.id) }
+    let!(:comment) { create(:comment, post_id: post.id) }
 
     before do
       sign_in user
-      get post_path(post.id, comment.id)
+      get post_path(post.id)
     end
 
     context 'ユーザーが自分の投稿を見る時' do

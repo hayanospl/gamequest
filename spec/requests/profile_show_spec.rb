@@ -7,7 +7,7 @@ RSpec.describe "Profile_show", type: :request do
   
     before do
       sign_in user
-      get users_show_path(user_id: user.id, follow_id: user2.id)
+      get users_show_path(user_id: user.id)
     end
 
     context 'プロフィール画面を見る時' do

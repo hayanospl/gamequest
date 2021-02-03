@@ -1,5 +1,5 @@
 RSpec.describe "TopPages", type: :request do
-  describe "GET root_path" do
+  describe "トップページのテスト" do
 #ホーム画面のテスト
     context 'root_pathを取得した時' do
 
