@@ -2,9 +2,9 @@ RSpec.describe "Post show", type: :system, js: true do
 
   let!(:user) { create(:user2) }
   let(:post) { create(:post) }
-  
-    describe '投稿詳細画面' do
+  let!(:post_tag_nil) { create(:post, tag_list: nil) }
 
+    describe '投稿詳細画面' do
       before do
         visit login_path
         fill_in 'Eメール', with: user.email
@@ -15,7 +15,6 @@ RSpec.describe "Post show", type: :system, js: true do
 
       context 'タグリンクを押した時' do
         it 'トップページにタグを含む投稿のみがある' do
-          post_tag_nil = create(:post, tag_list: nil)
           within("div.post-show-tag") do
             click_link "#{ post.tag_list }"
           end
