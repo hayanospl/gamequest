@@ -6,7 +6,7 @@ class CommentsController < ApplicationController
     if @comment.save
       redirect_to post_path(@post.id)
     else
-      redirect_to root_path
+      redirect_to request.referrer
     end
 
   end

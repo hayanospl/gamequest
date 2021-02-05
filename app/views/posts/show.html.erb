@@ -96,9 +96,7 @@
         <div><%= f.text_area :content, class: "new-comment" %></div>
         <div class="post-new-image-comment">
           <label>
-            <span class="btn btn-primary">
-              画像 <%= f.file_field :image, accept: 'image/jpeg, image/gif, image/png, video/*', style: "display:none"%>
-            </span>
+            <span class="btn btn-primary">画像<%= f.file_field :image, accept: 'image/jpeg, image/gif, image/png, video/*', style: "display:none"%></span>
           </label>
           <input type="text" class="form-control" readonly="">
 
