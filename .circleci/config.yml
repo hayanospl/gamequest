@@ -24,15 +24,15 @@ jobs:
 
     steps:
       - checkout
-      # - run: gem install bundler:2.1.4
+      - run: gem install bundler:2.1.4
 
-      # - run:
-      #     name: Which bundler?
-      #     command: bundle -v
-      # - ruby/bundle-install
-      # - run:
-      #     name: yarn install
-      #     command: yarn install
+      - run:
+          name: Which bundler?
+          command: bundle -v
+      - ruby/bundle-install
+      - run:
+          name: yarn install
+          command: yarn install
       # -run:
       #   name: setup bundler
       #   command: |
@@ -52,7 +52,7 @@ jobs:
           command: |
             bundle install --jobs=4 --retry=3 --path vendor/bundle
       
-      - run: yarn install
+      # - run: yarn install
 
       - save_cache:
           paths:
