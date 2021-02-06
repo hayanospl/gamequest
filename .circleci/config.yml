@@ -36,20 +36,20 @@ jobs:
       
       - run:
         name: setup bundler
-        command: |
-          sudo gem update --system
-          sudo gem uninstall bundler
-          sudo rm /usr/local/bin/bundle
-          sudo gem install bundler
+          command: |
+            sudo gem update --system
+            sudo gem uninstall bundler
+            sudo rm /usr/local/bin/bundle
+            sudo gem install bundler
 
       - run:
           name: Which bundler?
-          command: bundle -v
+            command: bundle -v
 
       - run:
           name: bundle install
-          command: |
-            bundle install --jobs=4 --retry=3 --path vendor/bundle
+            command: |
+              bundle install --jobs=4 --retry=3 --path vendor/bundle
 
       # Store bundle cache
       - save_cache:
@@ -59,8 +59,8 @@ jobs:
 
       - run:
           name: setup database
-          command: |
-            cp -v config/database.ci.yml config/database.yml
+            command: |
+              cp -v config/database.ci.yml config/database.yml
 
       - run: mysql_config --socket
       - run: bundle exec rails db:create
@@ -68,12 +68,12 @@ jobs:
 
       - run:
           name: run rspec
-          command: |
-            bundle exec rspec --profile 10 \
-                              --format RspecJunitFormatter \
-                              --out test_results/rspec.xml \
-                              --format progress \
-                              $(circleci tests glob "spec/**/*_spec.rb" | circleci tests split --split-by=timings)
+            command: |
+              bundle exec rspec --profile 10 \
+                                --format RspecJunitFormatter \
+                                --out test_results/rspec.xml \
+                                --format progress \
+                                $(circleci tests glob "spec/**/*_spec.rb" | circleci tests split --split-by=timings)
       
       # collect reports
 
