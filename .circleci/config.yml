@@ -74,8 +74,6 @@ jobs:
                             --out test_results/rspec.xml \
                             --format progress \
                             $(circleci tests glob "spec/**/*_spec.rb" | circleci tests split --split-by=timings)
-      
-      # collect reports
 
       - store_test_results:
           path: /tmp/test-results
