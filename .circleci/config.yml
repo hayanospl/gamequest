@@ -27,7 +27,7 @@ jobs:
 
       - run:
           name: wait for MYSQL_DATABASE
-          command: dockerize -wait tcp://127.0.0.1:3306 -timeout 3m
+            command: dockerize -wait tcp://127.0.0.1:3306 -timeout 3m
 
       - restore_cache:
           keys:
@@ -35,12 +35,12 @@ jobs:
             - v1-demo-
       
       - run:
-        name: setup bundler
-          command: |
-            sudo gem update --system
-            sudo gem uninstall bundler
-            sudo rm /usr/local/bin/bundle
-            sudo gem install bundler
+          name: setup bundler
+            command: |
+              sudo gem update --system
+              sudo gem uninstall bundler
+              sudo rm /usr/local/bin/bundle
+              sudo gem install bundler
 
       - run:
           name: Which bundler?
