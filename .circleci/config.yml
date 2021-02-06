@@ -6,12 +6,73 @@ jobs:
   build:
     docker:
       - image: circleci/ruby:2.7.1-buster
-    executor: ruby/default
+    # executor: ruby/default
+        environment:
+          BUNDLER_VERSION: 2.1.4
+          RAILS_ENV: test
+          DB_HOST: 127.0.0.1
+          # DB_USERNAME: 'root'
+          # DB_PASSWORD: ''
+
+      - image: circleci/mysql:8.0.22
+        environment:
+          MYSQL_DATABASE: 'ci_test'
+          MYSQL_USER: 'root'
+          # MYSQL_ROOT_PASSWORD: 'rootpass'
+
+    working_directory: ~/gamequest
+
     steps:
       - checkout
-      - run: gem install bundler:2.1.4
+      # - run: gem install bundler:2.1.4
+
+      # - run:
+      #     name: Which bundler?
+      #     command: bundle -v
+      # - ruby/bundle-install
+      # - run:
+      #     name: yarn install
+      #     command: yarn install
+      # -run:
+      #   name: setup bundler
+      #   command: |
+      #     sudo gem update --system
+      #     sudo gem uninstall bundler
+      #     sudo rm /usr/local/bin/bundle
+      #     sudo rm /usr/local/bin/bundler
+      #     sudo gem install bundler
+
+      - restore_cache:
+          keys:
+            - v1-dependencies-{{ checksum "Gemfile.lock" }}
+            - v1-dependencies-
 
       - run:
-          name: Which bundler?
-          command: bundle -v
-      - ruby/bundle-install
+          name: install dependencies
+          command: |
+            yarn install --check-files
+            bundle install --jobs=4 --retry=3 --path vendor/bundle
+
+      - save_cache:
+          paths:
+            - ./vendor/bundle
+          key: v1-dependencies-{{ checksum "Gemfile.lock" }}
+
+      - run:
+          name: bundle exec
+          command: |
+            dockerize -wait tcp://127.0.0.1:3306 -timeout 120s
+            bundle exec rake db:create
+            bundle exec rake db:schma:load
+
+      - run:
+          name: run tests
+          command: bundle exec rspec
+
+      # - store_test_results:
+      #     path: /tmp/test-results
+      # - store_artifacts:
+      #     path: /tmp/test-results
+      #     destinatin: test-results
+
+
