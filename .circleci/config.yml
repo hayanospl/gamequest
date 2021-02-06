@@ -26,8 +26,8 @@ jobs:
       - checkout
 
       - run:
-          name: wait for MYSQL_DATABASE
-            command: dockerize -wait tcp://127.0.0.1:3306 -timeout 3m
+        name: wait for MYSQL_DATABASE
+        command: dockerize -wait tcp://127.0.0.1:3306 -timeout 3m
 
       - restore_cache:
           keys:
