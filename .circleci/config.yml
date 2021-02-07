@@ -67,9 +67,9 @@ jobs:
       - run: bundle exec rails db:schema:load
 
       
-      - run: 
-          name: yarn Install
-          command: yarn install
+      # - run: 
+      #     name: yarn Install
+      #     command: yarn install
 
       - run: bundle exec bin/webpack
 
