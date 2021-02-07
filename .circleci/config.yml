@@ -4,7 +4,6 @@ orbs:
 
 jobs:
   build:
-    working_directory: ~/gamequest
     docker:
       - image: circleci/ruby:2.7.1
         environment:
@@ -20,7 +19,7 @@ jobs:
           MYSQL_USER: 'root'
           # MYSQL_ROOT_PASSWORD: 'rootpass'
 
-    
+    working_directory: ~/gamequest
 
     steps:
       - checkout
