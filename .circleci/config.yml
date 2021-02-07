@@ -66,7 +66,8 @@ jobs:
       - run: bundle exec rails db:schema:load
 
       
-      - run: yarn install
+      # - run: yarn install
+      - run: curl -o- -L https://yarnpkg.com/install.sh | bash
 
       - run: bundle exec bin/webpack
 
