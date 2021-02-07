@@ -67,6 +67,10 @@ jobs:
 
       
       # - run: yarn install
+      dependencies:
+        pre:
+          - mkdir -p ~/.cache/yarn
+
       - run: curl -o- -L https://yarnpkg.com/install.sh | bash
 
       - run: bundle exec bin/webpack
