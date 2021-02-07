@@ -4,9 +4,9 @@ orbs:
 
 jobs:
   build:
+    working_directory: ~/gamequest
     docker:
       - image: circleci/ruby:2.7.1
-    working_directory: ~/gamequest
         environment:
           BUNDLER_VERSION: 2.1.4
           RAILS_ENV: test
