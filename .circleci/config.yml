@@ -36,11 +36,12 @@ jobs:
       
       - run:
           name: setup bundler
-          command: |
-            sudo gem update --system
-            sudo gem uninstall bundler
-            sudo rm /usr/local/bin/bundle
-            sudo gem install bundler
+          command: bundle install --path vender/bundle
+          # command: |
+          #   sudo gem update --system
+          #   sudo gem uninstall bundler
+          #   sudo rm /usr/local/bin/bundle
+          #   sudo gem install bundler
 
       - run:
           name: Which bundler?
@@ -67,7 +68,7 @@ jobs:
       - run: bundle exec rails db:schema:load
 
       - run: bundle exec bin/webpack
-      
+
       - run: 
           name: yarn Install
           command: yarn install
