@@ -13,7 +13,7 @@
 *= require_tree .
 *= require_self
 */
- @import "bootstrap/scss/bootstrap.scss";
+ @import "bootstrap";
 
  .container-login {
    @extend .container-fluid;
