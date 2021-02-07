@@ -69,9 +69,9 @@ jobs:
       
       - run: 
           name: yarn Install
-          command: install yarn
+          command: yarn install
 
-      # - run: bundle exec bin/webpack
+      - run: bundle exec bin/webpack
 
 
       - run:
