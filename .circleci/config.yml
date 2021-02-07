@@ -31,8 +31,8 @@ jobs:
 
       - restore_cache:
           keys:
-            - v1-demo-{{ checksum "Gemfile.lock" }}
-            - v1-demo-
+            - v1-dependencies-{{ checksum "Gemfile.lock" }}
+            - v1-dependencies-
       
       - run:
           name: setup bundler
@@ -66,13 +66,12 @@ jobs:
       - run: bundle exec rails db:create
       - run: bundle exec rails db:schema:load
 
-      - run: bundle exec bin/webpack
       
       - run: 
           name: yarn Install
           command: yarn install
 
-      
+      - run: bundle exec bin/webpack
 
 
       - run:
