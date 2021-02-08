@@ -74,8 +74,9 @@ jobs:
             curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add -
             echo "deb https://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/sources.list.d/yarn.list
             sudo apt update && sudo apt install yarn
-
-      - run: bundle exec yarn add webpack webpack-cli
+      - run: bin/yarn
+      - run: bin/webpack
+      # - run: bundle exec yarn add webpack webpack-cli
       
       # - run: rm -rf bin/webpack*
       # - run: bundle exec rails webpacker:add
