@@ -102,7 +102,8 @@ RSpec.describe "Post show", type: :system, js: true do
       context '投稿のいいねボタンをクリックした時' do
         it 'いいねできる' do
           within("div#likes_buttons_#{post.id}") do
-            expect{ find('.far').click }.to change{ Like.count }.by(0)
+            # expect{ find('.far').click }.to change{ Like.count }.by(1)
+            find('.far').click
             expect{ visit current_path }.to change{ Like.count }.by(1)
             expect(page).to have_css '.fas'
           end
