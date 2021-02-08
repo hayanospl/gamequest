@@ -12,16 +12,17 @@ development:
 test:
   <<: *default
   database: rails_practice_test
+  port: <% nil || 3306 %>
+  host: <% nil || '127.0.0.1' %>
   
-
-ci_test:
-  database: ci_test
-  adapter: mysql2
-  encoding: utf8
-  pool: 5
-  username: 'root'
-  port: 3306
-  host: '127.0.0.1'
+# ci_test:
+#   database: ci_test
+#   # adapter: mysql2
+#   # encoding: utf8
+#   # pool: 5
+#   # username: 'root'
+#   port: 3306
+#   host: '127.0.0.1'
 
 
 production:
