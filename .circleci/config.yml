@@ -10,23 +10,17 @@ jobs:
           BUNDLER_VERSION: 2.1.4
           RAILS_ENV: test
           DB_HOST: 127.0.0.1
-          # TZ: "Japan"
 
       - image: circleci/mysql:8.0.22
         command: [--default-authentication-plugin=mysql_native_password]
         environment:
           MYSQL_DATABASE: 'ci_test'
           MYSQL_USER: 'root'
-          # MYSQL_ROOT_PASSWORD: 'rootpass'
 
     working_directory: ~/gamequest
 
     steps:
       - checkout
-
-      # - run:
-      #   name: wait for MYSQL_DATABASE
-      #   command: dockerize -wait tcp://127.0.0.1:3306 -timeout 3m
 
       - restore_cache:
           keys:
@@ -50,7 +44,6 @@ jobs:
           command: |
             bundle install --jobs=4 --retry=3 --path vendor/bundle
 
-      # Store bundle cache
       - save_cache:
           paths:
             - ./vendor/bundle
@@ -64,9 +57,6 @@ jobs:
       - run: mysql_config --socket
       - run: bundle exec rails db:create
       - run: bundle exec rails db:schema:load
-
-      
-      # - run: yarn install
       
       - run:
           name: install yarn
@@ -74,17 +64,10 @@ jobs:
             curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add -
             echo "deb https://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/sources.list.d/yarn.list
             sudo apt update && sudo apt install yarn
-      - run: bin/yarn
-      - run: bin/webpack
-      # - run: bundle exec yarn add webpack webpack-cli
-      
-      # - run: rm -rf bin/webpack*
-      # - run: bundle exec rails webpacker:add
-      # - run: RAILS_ENV=test bundle exec rails webpacker:compile
 
-      # - run:
-      #   command: chromedriver
-      #   background: true
+      - run: bin/yarn
+
+      - run: bin/webpack
 
       - run:
           name: run rspec
