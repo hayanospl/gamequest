@@ -14,7 +14,7 @@ development:
 test:
   <<: *default
   database: rails_practice_test
-  DB_HOST: '127.0.0.1'
+  # DB_HOST: '127.0.0.1'
 
 # test:
 #   database: ci_test
