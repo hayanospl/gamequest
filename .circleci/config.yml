@@ -1,12 +1,11 @@
 version: 2.1
 orbs:
   ruby: circleci/ruby@0.1.2 
-  browser-tools: circleci/browser-tools@1.1.1
 
 jobs:
   build:
     docker:
-      - image: circleci/ruby:2.7.1-buster
+      - image: circleci/ruby:2.7.1-buster-browsers
         environment:
           BUNDLER_VERSION: 2.1.4
           RAILS_ENV: test
@@ -82,8 +81,11 @@ jobs:
       # - run: rm -rf bin/webpack*
       # - run: bundle exec rails webpacker:add
       # - run: RAILS_ENV=test bundle exec rails webpacker:compile
-      - run: apt-get install firefox
-      
+
+      # - run:
+      #   command: chromedriver
+      #   background: true
+
       - run:
           name: run rspec
           command: bundle exec rspec
