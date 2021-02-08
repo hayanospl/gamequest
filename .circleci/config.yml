@@ -76,7 +76,10 @@ jobs:
             sudo apt update && sudo apt install yarn
 
       - run: bundle exec yarn add webpack webpack-cli
-
+      
+      - run: rm -rf bin/webpack*
+      - run: bundle exec rails webpacker:install
+      - run: RAILS_ENV=test bundle exec rails webpacker:compile
 
       - run:
           name: run rspec
