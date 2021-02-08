@@ -79,7 +79,7 @@ jobs:
       
       # - run: rm -rf bin/webpack*
       # - run: bundle exec rails webpacker:add
-      - run: RAILS_ENV=test bundle exec rails webpacker:compile
+      # - run: RAILS_ENV=test bundle exec rails webpacker:compile
 
       - run:
           name: run rspec
