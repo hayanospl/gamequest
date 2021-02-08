@@ -49,10 +49,10 @@ jobs:
             - ./vendor/bundle
           key: v1-dependencies-{{ checksum "Gemfile.lock" }}
 
-      - run:
-          name: setup database
-          command: |
-            cp -v config/database.ci.yml config/database.yml
+      # - run:
+      #     name: setup database
+      #     command: |
+      #       cp -v config/database.ci.yml config/database.yml
 
       - run: mysql_config --socket
       - run: bundle exec rails db:create
