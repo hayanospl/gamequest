@@ -19,6 +19,7 @@ jobs:
           MYSQL_USER: 'root'
           DB_PORT: 3306
           DB_HOST: 127.0.0.1
+          
 
     working_directory: ~/gamequest
 
