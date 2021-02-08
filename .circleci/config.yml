@@ -10,16 +10,16 @@ jobs:
           BUNDLER_VERSION: 2.1.4
           RAILS_ENV: test
           DB_HOST: 127.0.0.1
-          DB_PORT: 3306
+          # DB_PORT: 3306
 
       - image: circleci/mysql:8.0.22
         command: [--default-authentication-plugin=mysql_native_password]
         environment:
           MYSQL_DATABASE: rails_practice_test
           MYSQL_USER: 'root'
-          DB_PORT: 3306
-          DB_HOST: 127.0.0.1
-          
+          MYSQL_PORT: 3306
+          MYSQL_HOST: 127.0.0.1
+
 
     working_directory: ~/gamequest
 
