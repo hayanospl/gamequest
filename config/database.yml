@@ -11,7 +11,10 @@ development:
 
 test:
   <<: *default
-  # database: rails_practice_test
+  database: rails_practice_test
+  
+
+ci_test:
   database: ci_test
   adapter: mysql2
   encoding: utf8

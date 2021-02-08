@@ -1,4 +1,4 @@
-RSpec.describe "Post show", type: :system, js: true, retry: 5 do
+RSpec.describe "Post show", type: :system, js: true do
 
   let!(:user) { create(:user2) }
   let(:post) { create(:post) }

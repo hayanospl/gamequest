@@ -55,8 +55,8 @@ jobs:
       #       cp -v config/database.ci.yml config/database.yml
 
       - run: mysql_config --socket
-      - run: bundle exec rails db:create
-      - run: bundle exec rails db:schema:load
+      - run: bundle exec rails db:create RAILS_ENV='ci_test'
+      - run: bundle exec rails db:schema:load RAILS_ENV='ci_test'
       
       - run:
           name: install yarn
