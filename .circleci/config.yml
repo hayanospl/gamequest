@@ -75,7 +75,7 @@ jobs:
             echo "deb https://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/sources.list.d/yarn.list
             sudo apt update && sudo apt install yarn
 
-      - run: bundle exec yarn install webpack webpack-cli
+      - run: bundle exec yarn add webpack webpack-cli
 
 
       - run:
