@@ -8,7 +8,7 @@ jobs:
       - image: circleci/ruby:2.7.1-buster-browsers
         environment:
           BUNDLER_VERSION: 2.1.4
-          RAILS_ENV: test
+          RAILS_ENV: ci_test
           DB_HOST: 127.0.0.1
 
       - image: circleci/mysql:8.0.22
