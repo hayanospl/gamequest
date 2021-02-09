@@ -13,10 +13,10 @@ development:
 test:
   <<: *default
   database: 'rails_practice_test'
-  username: <%= ENV["DB_USERNAME"] %>
-  port: <%= ENV["DB_PORT"] %>
-  host: <%= ENV["DB_HOST"] %>
-  
+  username: <%= ENV.fetch("DB_USERNAME") { 'root' } %>
+  port: <%= ENV.fetch("DB_PORT") { 3306 } %>
+  host: <%= ENV.fetch("DB_HOST") { 127.0.0.1 } %>
+
 
 production:
   <<: *default
