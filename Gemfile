@@ -96,3 +96,6 @@ gem 'uglifier'
 
 # ダミーデータ生成用
 gem 'faker'
+
+# execjs::runtimeunavailable対策
+gem 'mini_racer'
