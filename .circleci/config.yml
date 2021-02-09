@@ -14,10 +14,9 @@ jobs:
 
       - image: circleci/mysql:8.0.22
         command: [--default-authentication-plugin=mysql_native_password]
-        volumes: ./mysql-confd:/etc/mysql/conf.d
         environment:
           MYSQL_DATABASE: 'rails_practice_test'
-          DB_PASSWORD: ""
+          # DB_PASSWORD: ""
           # MYSQL_USER: 'root'
           # MYSQL_PORT: 3306
           # MYSQL_HOST: 127.0.0.1
