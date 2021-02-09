@@ -16,6 +16,7 @@ test:
   username: <%= ENV["DB_USERNAME"] %>
   port: <%= ENV["DB_PORT"] %>
   host: <%= ENV["DB_HOST"] %>
+  
 
 production:
   <<: *default
