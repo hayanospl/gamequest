@@ -15,7 +15,6 @@ test:
   database: rails_practice_test
   port: <%= ENV['DB_PORT'] %>
   host: <%= ENV['DB_HOST'] %>
-  # DB_HOST: '127.0.0.1'
 
 # ci_test:
 #   database: ci_test
