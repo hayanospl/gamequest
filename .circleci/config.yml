@@ -9,18 +9,11 @@ jobs:
         environment:
           BUNDLER_VERSION: 2.1.4
           RAILS_ENV: test
-          # DB_HOST: 127.0.0.1
-          # DB_PORT: 3306
 
       - image: circleci/mysql:8.0.22
         command: [--default-authentication-plugin=mysql_native_password]
         environment:
           MYSQL_DATABASE: 'rails_practice_test'
-          # MYSQL_ROOT_PASSWORD: nil
-          # DB_PASSWORD: ""
-          # MYSQL_USER: 'root'
-          # MYSQL_PORT: 3306
-          # MYSQL_HOST: 127.0.0.1
 
     working_directory: ~/gamequest
 
@@ -53,11 +46,6 @@ jobs:
           paths:
             - ./vendor/bundle
           key: v1-dependencies-{{ checksum "Gemfile.lock" }}
-
-      # - run:
-      #     name: setup database
-      #     command: |
-      #       cp -v config/database.ci.yml config/database.yml
 
       - run: mysql_config --socket
       - run: bundle exec rails db:create
