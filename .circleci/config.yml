@@ -14,7 +14,6 @@ jobs:
         command: [--default-authentication-plugin=mysql_native_password]
         environment:
           MYSQL_DATABASE: 'rails_practice_test'
-          DB_USERNAME: 'root'
 
     working_directory: ~/gamequest
 
