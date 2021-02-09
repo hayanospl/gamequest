@@ -14,8 +14,7 @@ jobs:
 
       - image: circleci/mysql:8.0.22
         command: [--default-authentication-plugin=mysql_native_password]
-        volumes:
-          - ./mysql-confd:/etc/mysql/conf.d
+        volumes: ./mysql-confd:/etc/mysql/conf.d
         environment:
           MYSQL_DATABASE: 'rails_practice_test'
           DB_PASSWORD: ""
