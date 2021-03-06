@@ -1,0 +1,32 @@
+version: '3.7'
+services:
+  db:
+    image: mysql:8.0.22
+    environment:
+      MYSQL_PASSWORD: gq_pass
+      MYSQL_ROOT_PASSWORD: root_pass
+      MYSQL_DATABASE: gamequest
+      MYSQL_USER: gq_user
+    ports:
+      - '3306:3306'
+    command: --default-authentication-plugin=mysql_native_password
+    volumes:
+      - mysql-data:/var/lib/mysql
+  web:
+    build: .
+    command: bash -c "rm -f tmp/pids/server.pid && bundle exec rails s -p 3000 -b '0.0.0.0'"
+    volumes:
+      - .:/myapp
+    ports:
+      - "3000:3000"
+    depends_on:
+      - db
+    stdin_open: true
+    tty: true
+    environment:
+      GAMEQUEST_DB_HOST: db
+      GAMEQUEST_DB_NAME: gamequest
+      GAMEQUEST_DB_USER: gq_user
+      GAMEQUEST_DB_PASSWORD: gq_pass
+volumes:
+  mysql-data:

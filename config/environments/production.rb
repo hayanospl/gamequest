@@ -112,4 +112,5 @@ Rails.application.configure do
   config.assets.initialize_on_precompile = false
   config.assets.js_compressor = Uglifier.new(harmony: true)
   # config.require_master_key = true
+  config.hosts << qiita-tutrial-246436859.ap-northeast-1.elb.amazonaws.com
 end
