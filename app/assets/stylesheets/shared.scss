@@ -1,25 +1,17 @@
-.header {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
+.navbar{
   background-color: #00005d;
-  align-items: center;
-  margin-bottom: 20px;
-  padding: 0 4%;
   font-weight: bold;
+  font-size: 30px;
+  margin-bottom: 20px;
 }
 
-.header-left{
-  font-size: 32px;
+.navbar-nav{
+  background-color: #00005d;
 }
 
-.header-right{
-  font-size: 32px;
-  display: flex;
-}
-
-.header-right div{
-  margin-right: 10px;
+.nav-link{
+  color: whitesmoke;
+  font-size: 30px;
 }
 
 footer{
