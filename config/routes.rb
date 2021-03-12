@@ -11,6 +11,7 @@ Rails.application.routes.draw do
     post    'login', to: 'devise/session#create'
     delete  'logout', to: 'devise/sessions#destroy'
     get     '/users/create', to: 'devise/registrations#new'
+    get 'users/guest', to: 'users#guest'
   end
 
   root 'top_pages#index'

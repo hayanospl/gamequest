@@ -20,6 +20,13 @@ before_action :authenticate_user!, only: [:show]
     end
   end
 
+
+  def guest
+    user = User.find_by(email: 'test@test.test')
+    sign_in user
+    redirect_to root_path, notice: 'ゲストユーザーとしてログインしました'
+  end
+  
   private
   def user_params
     params.require(:user).permit(:name, :profile, :image)

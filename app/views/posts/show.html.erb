@@ -36,10 +36,6 @@
         <% end %>
       <% end %>
 
-      <% if @post.image.blank? %>
-        <div><%= image_tag "/assets/default.jpg", class: "post-image" %></div>
-      <% end %>
-
       <div id="likes_buttons_<%= @post.id %>">
         <%= render partial: 'shared/likes', locals: { post: @post } %>
       </div>
@@ -61,12 +57,7 @@
               <% else %>
                 <%= video_tag c.image.url, class: "post-video", controls: true, autobuffer: true %>
               <% end %>
-            <% end %>
-
-            <% if c.image.blank? %>
-              <div><%= image_tag "/assets/default.jpg", class: "post-image" %></div>
-            <% end %>
-            
+            <% end %> 
           </div>
 
         <div class="comment-user">
