@@ -18,7 +18,7 @@ test:
   username: <%= ENV.fetch("DB_USERNAME") { 'root' } %>
   password: <%= ENV["DB_PASSWORD"] %>
   port: <%= ENV.fetch("DB_PORT") { 3306 } %>
-  host: <%= ENV.fetch("DB_HOST") { 'db' } %>
+  host: <%= ENV.fetch("DB_HOST") { '127.0.0.1' } %>
 
   
 production:
