@@ -17,4 +17,4 @@ Gamequestはゲームで疑問に思ったことを質問できる掲示板+SNS�
 
 # インフラ
 AWSのECS ECR RDS Route53などを使ったデプロイを自力で調べて実装しました。
-[ER図.pdf](https://github.com/hayanospl/gamequest/files/6154836/ER.pdf)
+![構成図](https://user-images.githubusercontent.com/65850089/111438267-64e3a380-8747-11eb-8c3b-c35bfd43bae9.png)
