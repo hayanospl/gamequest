@@ -12,5 +12,8 @@ Gamequestはゲームで疑問に思ったことを質問できる掲示板+SNS�
 
 ![image](https://user-images.githubusercontent.com/65850089/111411519-0e15a400-871e-11eb-90da-52c00b434265.png)
 
+また、外部API連携としてTwitterログイン機能も実装しています。
+![image](https://user-images.githubusercontent.com/65850089/111413128-086d8d80-8721-11eb-8604-65bb95f4847f.png)
+
 # インフラ
 AWSのECS ECR RDS Route53などを使ったデプロイを自力で調べて実装しました。
