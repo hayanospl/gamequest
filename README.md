@@ -1,25 +1,16 @@
-# README
-second commit test
+# Gamequest
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+Gamequestはゲームで疑問に思ったことを質問できる掲示板+SNSです。
 
-Things you may want to cover:
+# 基本機能
+基本的な投稿、コメント、フォロー、いいね機能などを備えています。
+![image](https://user-images.githubusercontent.com/65850089/111410978-1b7e5e80-871d-11eb-801f-dd97d36683c3.png)
+![image](https://user-images.githubusercontent.com/65850089/111411108-52547480-871d-11eb-801b-eb43002a4969.png)
 
-* Ruby version
+# 特徴
+おすすめ機能と検索機能を独力かつライブラリ無しで実装しています
 
-* System dependencies
+![image](https://user-images.githubusercontent.com/65850089/111411519-0e15a400-871e-11eb-90da-52c00b434265.png)
 
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+# インフラ
+AWSのECS ECR RDS Route53などを使ったデプロイを自力で調べて実装しました。
