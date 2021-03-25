@@ -25,6 +25,11 @@ Gamequestはゲームで疑問に思ったことを質問できるアプリで�
 - 検索機能
 - ページネーション(gem: kaminari)
 
+# 本番環境
+https://game-quest.net
+
+ヘッダーの「ゲストログイン」をクリックすることでゲストユーザーとしてログインできます。
+
 # 基本機能
 基本的な投稿、コメント、フォロー、いいね機能などを備えています。
 ![image](https://user-images.githubusercontent.com/65850089/111410978-1b7e5e80-871d-11eb-801f-dd97d36683c3.png)
@@ -38,6 +43,6 @@ Gamequestはゲームで疑問に思ったことを質問できるアプリで�
 また、外部API連携としてTwitterログイン機能も実装しています。
 ![image](https://user-images.githubusercontent.com/65850089/111413128-086d8d80-8721-11eb-8604-65bb95f4847f.png)
 
-# インフラ
+# AWS構成図
 AWSのECS ECR RDS Route53などを使ったデプロイを自力で調べて実装しました。
 ![構成図](https://user-images.githubusercontent.com/65850089/111438267-64e3a380-8747-11eb-8c3b-c35bfd43bae9.png)
